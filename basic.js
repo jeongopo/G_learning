@@ -23,4 +23,6 @@ function create() {
     platforms.create(400, 568, 'circle');
 }
 
-function update() {}
+function update() {
+    
+}
