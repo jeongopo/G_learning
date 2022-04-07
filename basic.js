@@ -16,13 +16,14 @@ function preload() {
 }
 
 var platforms;
-
+var circle;
 function create() {
-    this.add.image(400, 300, 'circle');
-    platforms = this.physics.add.staticGroup();
-    platforms.create(400, 568, 'circle');
+    circle=this.add.image(0, 0, 'circle');
 }
 
 function update() {
-    
+    var cursors = this.input.keyboard.createCursorKeys();
+    if(cursors.w.isDown){
+        circle.setVelocityX(-160);
+    }
 }
