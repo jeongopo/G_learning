@@ -4,16 +4,19 @@
 <head>
     <title>Rhythm game </title>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
-    <script type="module" src="./basic.js" ></script>
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
+
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+
+    <script type="module" src="./scenes/ingame.js" ></script>
+    <script type="module" src="./scenes/title.js" ></script>
 </head>
 
 <body>
+    <div id="phaser_canvas"></div>
 </body>
-<style>
-    canvas {
-    display : block;   
-    margin : auto;
-    }
-    </style>
 </html>
