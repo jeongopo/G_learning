@@ -15,7 +15,7 @@ export default class S_Title extends Phaser.Scene {
     create() {
         this.add.image(600, 426, 'title_back');
         this.add.image(600, 426, 'title_btnback');
-        startButton = this.add.text(this.cameras.main.centerX, this.cameras.main.centerY, 'START', {
+        let startButton = this.add.text(this.cameras.main.centerX, this.cameras.main.centerY, 'START', {
                 fontFamily: "NanumSquareRoundExtraBold",
                 stroke: '#FFFFFF',
                 strokeThickness : 10,
