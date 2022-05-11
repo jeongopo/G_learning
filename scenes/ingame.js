@@ -250,4 +250,8 @@ export default class S_InGame extends Phaser.Scene {
 
         this.scoreText.setText(this.score + " POINTS");
     }
+
+    GetPush_A_Key(){
+        return this.push_A_Key;
+    }
 }
