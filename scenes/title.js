@@ -70,4 +70,6 @@ const config = {
     scene : [S_Title,S_InGame]
 };
 
+let ingame=new S_InGame();
+
 var game = new Phaser.Game(config);

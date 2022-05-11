@@ -55,6 +55,7 @@ export default class S_InGame extends Phaser.Scene {
                         this.circleObjectArr.splice(i, 1);
                         i--;
                         this.lastTime[0] = new Date();
+                        console.log("push_W_Key")
                         break;
                     }
                 }
@@ -132,21 +133,21 @@ export default class S_InGame extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('W_circle', "../assets/img/circle.png");
-        this.load.image('A_circle', "../assets/img/circle2.png");
-        this.load.image('S_circle', "../assets/img/circle3.png");
-        this.load.image('D_circle', "../assets/img/circle4.png");
+        this.load.image('W_circle', "./assets/img/circle.png");
+        this.load.image('A_circle', "./assets/img/circle2.png");
+        this.load.image('S_circle', "./assets/img/circle3.png");
+        this.load.image('D_circle', "./assets/img/circle4.png");
 
-        this.load.image('ingame_back', "../assets/img/ingame_back.png");
-        this.load.image('upperbar_blue', "../assets/img/upperbar_blue.png");
-        this.load.image('ingame_noteline', "../assets/img/ingame_noteline.png");
-        this.load.image('backarrowbtn', "../assets/img/backarrowbtn.png");
+        this.load.image('ingame_back', "./assets/img/ingame_back.png");
+        this.load.image('upperbar_blue', "./assets/img/upperbar_blue.png");
+        this.load.image('ingame_noteline', "./assets/img/ingame_noteline.png");
+        this.load.image('backarrowbtn', "./assets/img/backarrowbtn.png");
 
-        this.load.image('C_match', "../assets/img/C_match.png");
-        this.load.image('C_tam', "../assets/img/C_tam.png");
-        this.load.image('Img_tam', "../assets/img/Img_tam.png");
+        this.load.image('C_match', "./assets/img/C_match.png");
+        this.load.image('C_tam', "./assets/img/C_tam.png");
+        this.load.image('Img_tam', "./assets/img/Img_tam.png");
 
-        this.load.audio('kirby', "../assets/bgm/Kirby.mp3");
+        this.load.audio('kirby', "./assets/bgm/Kirby.mp3");
     }
     create() {
         //#region 디자인
@@ -250,8 +251,6 @@ export default class S_InGame extends Phaser.Scene {
 
         this.scoreText.setText(this.score + " POINTS");
     }
-
-    GetPush_A_Key(){
-        return this.push_A_Key;
-    }
+    
 }
+
