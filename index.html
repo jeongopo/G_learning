@@ -3,20 +3,38 @@
 
 <head>
     <title>Rhythm game </title>
+    <title>Rhythm game </title>
+    <script src="./lib/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="./lib/control_utils.js" crossorigin="anonymous"></script>
+    <script src="./lib/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+
+    <script type="module" defer src="./lib/script.js"></script>
+
     <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
     <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
 
     <style type="text/css">
-        body {
-            margin: 0;
+        canvas {
+          position: absolute;
+          margin : auto;
+          display : block;
         }
     </style>
-
     <script type="module" src="./scenes/ingame.js" ></script>
     <script type="module" src="./scenes/title.js" ></script>
 </head>
 
-<body>
+<body style=" margin: 0; text-align: center; ">
+    <div style="float : left; ">
+        <div style="display : flex;"> 
+            <video class="input_video" width="640px" height="360px"></video>
+            <canvas class="output_canvas" width="640px" height="360px"></canvas>
+        </div>
+        <div style="text-align: center;">
+            <p id="handPos">HAND Position</p>
+        </div>
+    </div>
     <div id="phaser_canvas"></div>
 </body>
 </html>
