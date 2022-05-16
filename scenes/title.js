@@ -67,6 +67,9 @@ const config = {
     },
     backgroundColor: '#FFF',
     parent: 'phaser_canvas',
+    dom: {
+        createContainer: true
+    },
     scene : [S_Title,S_InGame]
 };
 

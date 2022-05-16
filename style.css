@@ -4,8 +4,9 @@ body {
   background-color: #ffe8dd;
 }
 canvas {
-margin : auto;
-display : block;
+  display : block;
+  position: relative;
+  z-index: 1;
 }
 
 .input_video{
@@ -14,7 +15,10 @@ display : block;
 
 .camera{
   display: flex;
+  position: absolute;
   justify-content: center;
+  z-index: 2;
+  bottom: 140px;
 }
 
 .handPos {

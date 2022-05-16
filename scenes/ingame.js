@@ -183,7 +183,7 @@ export default class S_InGame extends Phaser.Scene {
         this.add.image(600, 60, 'upperbar_blue');
         this.add.image(600, 260, 'ingame_noteline');
         this.add.image(200, 260, 'C_match');
-        this.add.image(600, 600, 'Img_tam');
+        this.add.image(900, 600, 'Img_tam');
         this.add.image(100, 60, 'backarrowbtn');
 
         //텍스트 배치
@@ -218,7 +218,6 @@ export default class S_InGame extends Phaser.Scene {
         this.backMusic = this.sound.add('rhythm_music', {
             loop: false
         });
-        M_Init();
         this.startGame();
     }
 
@@ -241,6 +240,12 @@ export default class S_InGame extends Phaser.Scene {
                     break;
                 }
             }
+        }
+        let moveText = document.querySelector('#handPos');
+        //console.log(moveText.innerHTML);
+
+        if(moveText.innerHTML==="↘"){
+            this.push_W_Key();
         }
 
         if (this.keyW.isDown) {
