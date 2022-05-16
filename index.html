@@ -13,28 +13,23 @@
 
     <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
     <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 
-    <style type="text/css">
-        canvas {
-          position: absolute;
-          margin : auto;
-          display : block;
-        }
-    </style>
     <script type="module" src="./scenes/ingame.js" ></script>
     <script type="module" src="./scenes/title.js" ></script>
 </head>
 
-<body style=" margin: 0; text-align: center; ">
-    <div style="float : left; ">
-        <div style="display : flex;"> 
-            <video class="input_video" width="640px" height="360px"></video>
-            <canvas class="output_canvas" width="640px" height="360px"></canvas>
-        </div>
-        <div style="text-align: center;">
+<body>
+    <div class="camera">
+        <div class="handPos">
             <p id="handPos">HAND Position</p>
         </div>
+        <div> 
+            <video class="input_video" width="640px" height="360px"></video>
+            <canvas class="output_canvas" width="240px" height="130px"></canvas>
+        </div>
     </div>
-    <div id="phaser_canvas"></div>
+    <div id="phaser_canvas">
+    </div>
 </body>
 </html>

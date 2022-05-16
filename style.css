@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  text-align: center;
+  background-color: #ffe8dd;
+}
+canvas {
+margin : auto;
+display : block;
+}
+
+.input_video{
+  display: none;
+}
+
+.camera{
+  display: flex;
+  justify-content: center;
+}
+
+.handPos {
+  text-align: center;
+}

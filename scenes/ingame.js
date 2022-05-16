@@ -16,11 +16,27 @@ export default class S_InGame extends Phaser.Scene {
         this.canvasHeight = 853;
 
         this.timearr = [ //[키,노트 타임]. 일단 W로만 만들어놓음
-            ['W', 1500],
-            ['W', 2800],
-            ['W', 4200],
-            ['W', 5400],
-            ['W', 5800]
+            ['W', 17000],
+            ['W', 17400],
+            ['W', 17800],
+
+            ['W', 20600],
+            ['W', 21000],
+            ['W', 21400],
+
+            ['W', 23400],
+            ['W', 23600],
+            ['W', 23800],
+
+            ['W', 25000],
+            ['W', 25200],
+            ['W', 25400],
+
+            ['W', 27800],
+            ['W', 28200],
+            ['W', 28600],
+            // ['W', 5400],
+            // ['W', 5800]
         ];
         this.scorenumarr = [500, 300, 100]; //판정별 점수
         this.evaltextcontent = ["Perfect!", "Good!", "Bad!"]; //판정별 대사
@@ -147,7 +163,7 @@ export default class S_InGame extends Phaser.Scene {
         this.load.image('C_tam', "./assets/img/C_tam.png");
         this.load.image('Img_tam', "./assets/img/Img_tam.png");
 
-        this.load.audio('kirby', "./assets/bgm/Kirby.mp3");
+        this.load.audio('rhythm_music', "./assets/bgm/rhythm_music.mp3");
     }
     create() {
         //#region 디자인
@@ -166,7 +182,7 @@ export default class S_InGame extends Phaser.Scene {
         this.add.image(600, 60, 'upperbar_blue');
         this.add.image(600, 260, 'ingame_noteline');
         this.add.image(200, 260, 'C_match');
-        this.add.image(900, 600, 'Img_tam');
+        this.add.image(600, 600, 'Img_tam');
         this.add.image(100, 60, 'backarrowbtn');
 
         //텍스트 배치
@@ -177,7 +193,7 @@ export default class S_InGame extends Phaser.Scene {
             stroke: '#000',
             strokeThickness: 10,
         }).setOrigin(0.5);
-        this.musicName = this.add.text(this.cameras.main.centerX, 60, '라데츠키 행진곡', {
+        this.musicName = this.add.text(this.cameras.main.centerX, 60, '리듬악기 노래', {
                 fontFamily: "NanumSquareRoundExtraBold",
                 fill: '#FFF',
                 fontSize: '30px',
@@ -198,7 +214,7 @@ export default class S_InGame extends Phaser.Scene {
         this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
-        this.backMusic = this.sound.add('kirby', {
+        this.backMusic = this.sound.add('rhythm_music', {
             loop: false
         });
         this.startGame();
