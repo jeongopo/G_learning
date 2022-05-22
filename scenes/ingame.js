@@ -1,7 +1,9 @@
+import {checkPos} from "../lib/script.js"
+
+
 export default class S_InGame extends Phaser.Scene {
     constructor() {
         super('inGame');
-
         //#region 변수정의
         this.line;
         this.textEval;
@@ -11,13 +13,14 @@ export default class S_InGame extends Phaser.Scene {
         this.IsMusicOn = false;
         this.startTime;
         this.musicName;
+        this.emitter;
 
         this.canvasWidth = 1200;
         this.canvasHeight = 853;
 
         this.timearr = [ //[키,노트 타임]. 일단 W로만 만들어놓음
             ['W', 17000],
-            ['W', 17400],
+            ['A', 17400],
             ['W', 17800],
 
             ['W', 20600],
@@ -64,57 +67,61 @@ export default class S_InGame extends Phaser.Scene {
         };
 
         this.push_W_Key = () => {
-            console.log("W 키 함수 실행 "+this.circleObjectArr.length);
+            console.log("W 키 함수 실행 " + this.circleObjectArr.length);
             for (var i = 0; i < this.circleObjectArr.length; i++) {
-                //if (this.circleObjectArr[i][0] == "W") {
-                    if (this.evaluateNote(this.circleObjectArr[i][1])) {
-                        this.circleObjectArr[i][1].destroy(false);
-                        this.circleObjectArr.splice(i, 1);
-                        i--;
-                        this.lastTime[0] = new Date();
-                        console.log("push_W_Key")
-                        break;
-                    }
-                //}
+                if (this.circleObjectArr[i][0] == "W") {
+                if (this.evaluateNote(this.circleObjectArr[i][1])) {
+                    this.circleObjectArr[i][1].destroy(false);
+                    this.circleObjectArr.splice(i, 1);
+                    i--;
+                    this.lastTime[0] = new Date();
+                    console.log("push_W_Key")
+                    break;
+                }
+                }
             }
         }
         this.push_A_Key = () => {
+            //console.log("A 키 함수 실행 "+this.circleObjectArr.length);
+
             for (var i = 0; i < this.circleObjectArr.length; i++) {
-                //if (this.circleObjectArr[i][0] == "A") {
-                    if (this.evaluateNote(this.circleObjectArr[i][1])) {
-                        this.circleObjectArr[i][1].destroy(false);
-                        this.circleObjectArr.splice(i, 1);
-                        i--;
-                        this.lastTime[1] = new Date();
-                        break;
-                    }
-                //}
+                if (this.circleObjectArr[i][0] == "A") {
+                if (this.evaluateNote(this.circleObjectArr[i][1])) {
+                    this.circleObjectArr[i][1].destroy(false);
+                    this.circleObjectArr.splice(i, 1);
+                    i--;
+                    this.lastTime[1] = new Date();
+                    break;
+                }
+                }
             }
         }
         this.push_S_Key = () => {
+            //console.log("S 키 함수 실행 "+this.circleObjectArr.length);
             for (var i = 0; i < this.circleObjectArr.length; i++) {
-                //if (this.circleObjectArr[i][0] == "S") {
-                    if (this.evaluateNote(this.circleObjectArr[i][1])) {
-                        this.circleObjectArr[i][1].destroy(false);
-                        this.circleObjectArr.splice(i, 1);
-                        i--;
-                        this.lastTime[2] = new Date();
-                        break;
-                    }
-                //}
+                if (this.circleObjectArr[i][0] == "S") {
+                if (this.evaluateNote(this.circleObjectArr[i][1])) {
+                    this.circleObjectArr[i][1].destroy(false);
+                    this.circleObjectArr.splice(i, 1);
+                    i--;
+                    this.lastTime[2] = new Date();
+                    break;
+                }
+                }
             }
         }
         this.push_D_Key = () => {
+            //console.log("D 키 함수 실행 "+this.circleObjectArr.length);
             for (var i = 0; i < this.circleObjectArr.length; i++) {
-                //if (this.circleObjectArr[i][0] == "D") {
-                    if (this.evaluateNote(this.circleObjectArr[i][1])) {
-                        this.circleObjectArr[i][1].destroy(false);
-                        this.circleObjectArr.splice(i, 1);
-                        i--;
-                        this.lastTime[3] = new Date();
-                        break;
-                    }
-               // }
+                if (this.circleObjectArr[i][0] == "D") {
+                if (this.evaluateNote(this.circleObjectArr[i][1])) {
+                    this.circleObjectArr[i][1].destroy(false);
+                    this.circleObjectArr.splice(i, 1);
+                    i--;
+                    this.lastTime[3] = new Date();
+                    break;
+                }
+                 }
             }
         }
 
@@ -167,6 +174,7 @@ export default class S_InGame extends Phaser.Scene {
         this.load.audio('rhythm_music', "./assets/bgm/rhythm_music.mp3");
     }
     create() {
+        console.log("create");
         //#region 디자인
         /* 그라데이션 코드로 짜려다가 실패한 부분
         var graphicsInstance = this.add.graphics();
@@ -187,7 +195,7 @@ export default class S_InGame extends Phaser.Scene {
         this.add.image(100, 60, 'backarrowbtn');
 
         //텍스트 배치
-        this.textEval = this.add.text(this.cameras.main.centerX, this.canvasHeight/2, '', {
+        this.textEval = this.add.text(this.cameras.main.centerX, this.canvasHeight / 2, '', {
             fontFamily: "NanumSquareRoundExtraBold",
             fill: '#FBFF4F',
             fontSize: '30px',
@@ -201,7 +209,7 @@ export default class S_InGame extends Phaser.Scene {
                 align: 'center'
             })
             .setOrigin(0.5);
-        this.scoreText = this.add.text(this.canvasWidth-150, 60, '0 POINTS', {
+        this.scoreText = this.add.text(this.canvasWidth - 150, 60, '0 POINTS', {
                 fontFamily: "NanumSquareRoundExtraBold",
                 fill: '#FFF',
                 fontSize: '30px',
@@ -215,71 +223,51 @@ export default class S_InGame extends Phaser.Scene {
         this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
+
+
         this.backMusic = this.sound.add('rhythm_music', {
             loop: false
         });
         this.startGame();
+        this.emitter = new Phaser.Events.EventEmitter();
+        this.emitter.on('PushW', () => {
+            this.push_W_Key();
+        }, this);
+
+        for (var i = 0; i < this.timearr.length; i++) {
+            let tem = this.add.image(1300, 260, 'C_tam');
+            this.circleObjectArr.push([this.timearr[i][0], tem,this.timearr[i][1]]);
+            console.log([this.timearr[i][0], tem,this.timearr[i][1]]);
+        }
     }
-
-
 
     update(time, delta) {
         if (this.IsMusicOn) { //게임 시작 되면 update 시작
-            for (var i = 0; i < this.timearr.length; i++) {
-                if (this.timearr[i][1] <= this.inGameGetTime()) {
-                    let tem;
-                    switch (this.timearr[i][0]) {
-                        default:
-                            tem = this.add.image(1300, 260, 'C_tam');
-                            break;
-                    }
-                    this.circleObjectArr.push([this.timearr[i][0], tem]);
-                    console.log("오브젝트 추가 "+this.circleObjectArr.length);
-                    this.timearr.splice(i, 1);
+            switch(checkPos){
+                case 1 :  this.push_W_Key();
+                break;
+                case 2 : this.push_A_Key();
+                break;
+                case 3 : this.push_S_Key();
+                break;
+                case 4: this.push_D_Key();
+                break;
+            }
+
+            for (var i = 0; i < this.circleObjectArr.length; i++) { // MISS아니라면 움직이기
+                if (this.circleObjectArr[i][1].x < -100) {
+                    this.circleObjectArr[i][1].destroy(false);
+                    this.circleObjectArr.splice(i, 1);
                     i--;
-                    break;
+                    this.textEval.setText("MISS");
+                } else if (this.circleObjectArr[i][2] <= this.inGameGetTime()) {
+                    this.circleObjectArr[i][1].x -= this.speed * delta;
                 }
+
             }
+            this.scoreText.setText(this.inGameGetTime());
+            //this.scoreText.setText(this.score + " POINTS");
         }
-        let moveText = document.querySelector('#handPos');
-        //console.log(moveText.innerHTML);
-
-        if(moveText.innerHTML==="↘"){
-            this.push_W_Key();
-        }
-
-        if (this.keyW.isDown) {
-            console.log(this.inGameGetTime());
-            if (this.distractTime(0) >= 200) {
-                this.push_W_Key(); //W 판정
-            } else if (this.keyA.isDown) {
-                if (this.distractTime(1) >= 200)
-                    this.push_A_Key(); //A 판정
-            } else if (this.keyS.isDown) {
-                if (this.distractTime(2) >= 200)
-                    this.push_S_Key(); //S 판정
-            } else if (this.keyD.isDown) {
-                if (this.distractTime(3) >= 200)
-                    this.push_D_Key(); //D 판정
-            }
-        }
-        for (var i = 0; i < this.circleObjectArr.length; i++) { // MISS아니라면 움직이기
-            if (this.circleObjectArr[i][1].x < -100) {
-                this.circleObjectArr[i][1].destroy(false);
-                this.circleObjectArr.splice(i, 1);
-                i--;
-                this.textEval.setText("MISS");
-            } else this.circleObjectArr[i][1].x -= this.speed * delta;
-
-        }
-
-        this.scoreText.setText(this.score + " POINTS");
     }
 
-    GetPush_Key(){
-        console.log("키 입력 실행"+this.circleObjectArr.length);
-        this.push_W_Key();
-    }
-    
 }
-
