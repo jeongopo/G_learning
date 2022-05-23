@@ -265,8 +265,8 @@ export default class S_InGame extends Phaser.Scene {
                 }
 
             }
-            this.scoreText.setText(this.inGameGetTime());
-            //this.scoreText.setText(this.score + " POINTS");
+            //this.scoreText.setText(this.inGameGetTime());
+            this.scoreText.setText(this.score + " POINTS");
         }
     }
 
