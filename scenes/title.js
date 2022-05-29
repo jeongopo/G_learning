@@ -9,18 +9,28 @@ export default class S_Title extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('title_back', "../assets/img/title_back.png");
-        this.load.image('title_btnback', "../assets/img/title_btnback.png");
+        this.load.image('hand', "../assets/img/hand.png")
+        // this.load.image('title_back', "../assets/img/title_back.png");
+        // this.load.image('title_btnback', "../assets/img/title_btnback.png");
     }
     create() {
-        this.add.image(600, 426, 'title_back');
-        this.add.image(600, 426, 'title_btnback');
-        let startButton = this.add.text(this.cameras.main.centerX, this.cameras.main.centerY, 'START', {
-                fontFamily: "NanumSquareRoundExtraBold",
+        this.add.image(770, 512, 'hand');
+        //this.add.image(600, 426, 'title_btnback');
+        let titleText = this.add.text(this.cameras.main.centerX, 300, 'MGMG', {
+            fontFamily: "Noto Sans KR",
+            fill:'#2C2340',
+            fontSize: '90px',
+        })
+        .setOrigin(0.5);
+
+        titleText.fontWeight = 'bold'
+
+        let startButton = this.add.text(this.cameras.main.centerX, this.cameras.main.centerY+300, 'START', {
+                fontFamily: 'Noto Sans KR',
                 stroke: '#FFFFFF',
                 strokeThickness : 10,
                 fill: '#000',
-                fontSize: '55px'
+                fontSize: '75px'
             })
             .setOrigin(0.5)
             .setPadding(20)
@@ -31,18 +41,18 @@ export default class S_Title extends Phaser.Scene {
                 this.scene.start('inGame');
             })
             .on('pointerover', () => startButton.setStyle({
-                fontFamily: "NanumSquareRoundExtraBold",
+                fontFamily: "NotoSans",
                 stroke: '#000',
                 strokeThickness : 10,
                 fill: '#FFF',
-                fontSize: '55px'
+                fontSize: '75px'
             }))
             .on('pointerout', () => startButton.setStyle({
-                fontFamily: "NanumSquareRoundExtraBold",
+                fontFamily: "NotoSans",
                 stroke: '#FFFFFF',
                 strokeThickness : 10,
                 fill: '#000',
-                fontSize: '55px'
+                fontSize: '75px'
             }));
 
             
@@ -51,8 +61,8 @@ export default class S_Title extends Phaser.Scene {
 
 const config = {
     type: Phaser.WEBGL,
-    width: 1200,
-    height: 853,
+    width: 1440,
+    height: 1024,
     audio: {
         disableWebAudio: true
     },
@@ -65,7 +75,7 @@ const config = {
             }
         }
     },
-    backgroundColor: '#FFF',
+    backgroundColor: '#E9FFB1',
     parent: 'phaser_canvas',
     dom: {
         createContainer: true

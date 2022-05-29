@@ -1,13 +1,22 @@
 body {
   margin: 0;
   text-align: center;
-  background-color: #ffe8dd;
+  /* background-color: #E9FFB1; */
+  background-color: aliceblue;
 }
 canvas {
-  display : block;
-  position: relative;
   z-index: 1;
+  /* position: relative; */
+  display: block;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  max-height: 50vw;
 }
+
 
 .input_video{
   display: none;
