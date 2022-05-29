@@ -10,52 +10,33 @@ export default class S_Title extends Phaser.Scene {
 
     preload() {
         this.load.image('hand', "../assets/img/hand.png")
+        this.load.image('title_startBtn', "../assets/img/startBtn.png");
         // this.load.image('title_back', "../assets/img/title_back.png");
         // this.load.image('title_btnback', "../assets/img/title_btnback.png");
     }
     create() {
-        this.add.image(770, 512, 'hand');
-        //this.add.image(600, 426, 'title_btnback');
+        // 타이틀씬 손 이미지
+        const hand = this.add.image(750, 400, 'hand');
+        hand.setScale(1.3)
+            .alpha = 0.6;
+
+        //타이틀 텍스트
         let titleText = this.add.text(this.cameras.main.centerX, 300, 'MGMG', {
             fontFamily: "Noto Sans KR",
             fill:'#2C2340',
-            fontSize: '90px',
+            fontSize: '150px',
         })
         .setOrigin(0.5);
 
-        titleText.fontWeight = 'bold'
-
-        let startButton = this.add.text(this.cameras.main.centerX, this.cameras.main.centerY+300, 'START', {
-                fontFamily: 'Noto Sans KR',
-                stroke: '#FFFFFF',
-                strokeThickness : 10,
-                fill: '#000',
-                fontSize: '75px'
-            })
-            .setOrigin(0.5)
-            .setPadding(20)
-            .setInteractive({
-                useHandCursor: true
-            })
-            .on('pointerdown', () => {
-                this.scene.start('inGame');
-            })
-            .on('pointerover', () => startButton.setStyle({
-                fontFamily: "NotoSans",
-                stroke: '#000',
-                strokeThickness : 10,
-                fill: '#FFF',
-                fontSize: '75px'
-            }))
-            .on('pointerout', () => startButton.setStyle({
-                fontFamily: "NotoSans",
-                stroke: '#FFFFFF',
-                strokeThickness : 10,
-                fill: '#000',
-                fontSize: '75px'
-            }));
-
-            
+        //타이틀씬 시작버튼
+        const startBtn = this.add.image(this.cameras.main.centerX, 800, 'title_startBtn');
+        startBtn.setScale(0.5)
+                .setInteractive({ seHandCursor: true })
+                .on('pointerdown', () => {
+                    this.scene.start('inGame');
+                }, this)
+                .on('pointerover', () => startBtn.setScale(0.55))
+                .on('pointerout', () => startBtn.setScale(0.5));
     }
 }
 
@@ -83,4 +64,4 @@ const config = {
     scene : [S_Title,S_InGame]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

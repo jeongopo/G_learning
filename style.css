@@ -4,7 +4,8 @@ body {
   /* background-color: #E9FFB1; */
   background-color: aliceblue;
 }
-canvas {
+
+#phaser_canvas canvas {  
   z-index: 1;
   /* position: relative; */
   display: block;
@@ -16,7 +17,6 @@ canvas {
   max-width: 100%;
   max-height: 50vw;
 }
-
 
 .input_video{
   display: none;
