@@ -32,7 +32,7 @@ export default class S_Title extends Phaser.Scene {
         //타이틀씬 시작버튼
         const startBtn = this.add.image(this.cameras.main.centerX, 760, 'title_startBtn');
         startBtn.setScale(0.5)
-                .setInteractive({ seHandCursor: true })
+                .setInteractive({ cursor: 'pointer'})
                 .on('pointerdown', () => {
                     this.scene.start('inGame');
                 }, this)
