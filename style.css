@@ -2,7 +2,7 @@ body {
   margin: 0;
   text-align: center;
   /* background-color: #E9FFB1; */
-  background-color: aliceblue;
+  background-color: #E9FFB1;
 }
 
 #phaser_canvas canvas {  
