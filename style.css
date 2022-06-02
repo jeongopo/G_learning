@@ -1,25 +1,35 @@
 body {
   margin: 0;
   text-align: center;
-  background-color: #ffe8dd;
-}
-canvas {
-  display : block;
-  position: relative;
-  z-index: 1;
+  /* background-color: #E9FFB1; */
+  background-color: aliceblue;
 }
 
-.input_video{
+#phaser_canvas canvas {  
+  z-index: -1;
+  /* position: relative; */
+  display: block;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  max-height: 50vw;
+}
+
+.camera {
   display: none;
+
 }
 
-.camera{
+/* .camera{
   display: flex;
   position: absolute;
   justify-content: center;
   z-index: 2;
   bottom: 140px;
-}
+} */
 
 .handPos {
   text-align: center;

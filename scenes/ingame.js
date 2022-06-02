@@ -157,19 +157,14 @@ export default class S_InGame extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('W_circle', "./assets/img/circle.png");
-        this.load.image('A_circle', "./assets/img/circle2.png");
-        this.load.image('S_circle', "./assets/img/circle3.png");
-        this.load.image('D_circle', "./assets/img/circle4.png");
+        this.load.image('upperbar', "./assets/img/upperbar_darkpurple.png");
+        this.load.image('noteline', "./assets/img/noteline.png");
+        this.load.image('back_arrow', "./assets/img/back_arrow.png");
 
-        this.load.image('ingame_back', "./assets/img/ingame_back.png");
-        this.load.image('upperbar_blue', "./assets/img/upperbar_blue.png");
-        this.load.image('ingame_noteline', "./assets/img/ingame_noteline.png");
-        this.load.image('backarrowbtn', "./assets/img/backarrowbtn.png");
+        this.load.image('C_match', "./assets/img/circle_match.png");
+        this.load.image('C_tam', "./assets/img/circle_tam.png");
 
-        this.load.image('C_match', "./assets/img/C_match.png");
-        this.load.image('C_tam', "./assets/img/C_tam.png");
-        this.load.image('Img_tam', "./assets/img/Img_tam.png");
+        this.load.image('tambourine', "./assets/img/tambourine.png");
 
         this.load.audio('rhythm_music', "./assets/bgm/rhythm_music.mp3");
     }
@@ -187,32 +182,44 @@ export default class S_InGame extends Phaser.Scene {
         */
 
         //오브젝트 배치
-        this.add.image(600, 426, 'ingame_back');
-        this.add.image(600, 60, 'upperbar_blue');
-        this.add.image(600, 260, 'ingame_noteline');
-        this.add.image(200, 260, 'C_match');
-        this.add.image(900, 600, 'Img_tam');
-        this.add.image(100, 60, 'backarrowbtn');
+        const upperbar = this.add.image(720, 70, 'upperbar').setScale(0.5);
+        const noteline = this.add.image(720, 260, 'noteline').setScale(0.5);
 
+        const c_match = this.add.image(200, 260, 'C_match').setScale(0.5);
+        const c_tam = this.add.image(900, 600, 'C_tam').setScale(0.5);
+        const tambourine = this.add.image(1080, 700, 'tambourine').setScale(0.4);
+        tambourine.angle= 45;
+
+        const back_arrow = this.add.image(100, 70, 'back_arrow').setScale(0.5);
+
+        // 카메라 위치관련 ... 
+        const camera = document.querySelector('.camera');
+        camera.style.display = 'block';
+        const input_video = document.querySelector('.input_video');
+        input_video.style.display = 'none';
+        const output_canvas = document.querySelector('.output_canvas');
+        output_canvas.style = 'position: absolute; top: 65%; left: 33%; width:30%; transform: translate(-50%,-50%); border-radius: 20px';
+        
         //텍스트 배치
         this.textEval = this.add.text(this.cameras.main.centerX, this.canvasHeight / 2, '', {
-            fontFamily: "NanumSquareRoundExtraBold",
+            fontFamily: "Noto Sans KR",
             fill: '#FBFF4F',
             fontSize: '30px',
             stroke: '#000',
             strokeThickness: 10,
         }).setOrigin(0.5);
-        this.musicName = this.add.text(this.cameras.main.centerX, 60, '리듬악기 노래', {
-                fontFamily: "NanumSquareRoundExtraBold",
+
+        this.musicName = this.add.text(this.cameras.main.centerX, 70, '리듬악기 노래', {
+                fontFamily: "Noto Sans KR",
                 fill: '#FFF',
-                fontSize: '30px',
+                fontSize: '50px',
                 align: 'center'
             })
             .setOrigin(0.5);
-        this.scoreText = this.add.text(this.canvasWidth - 150, 60, '0 POINTS', {
-                fontFamily: "NanumSquareRoundExtraBold",
+        this.scoreText = this.add.text(this.canvasWidth+80, 73, '0 POINTS', {
+                fontFamily: "Noto Sans KR",
                 fill: '#FFF',
-                fontSize: '30px',
+                fontSize: '35px',
                 align: 'left'
             })
             .setOrigin(0.5);
@@ -235,7 +242,7 @@ export default class S_InGame extends Phaser.Scene {
         }, this);
 
         for (var i = 0; i < this.timearr.length; i++) {
-            let tem = this.add.image(1300, 260, 'C_tam');
+            let tem = this.add.image(1300, 260, 'C_tam').setScale(0.5);
             this.circleObjectArr.push([this.timearr[i][0], tem,this.timearr[i][1]]);
             console.log([this.timearr[i][0], tem,this.timearr[i][1]]);
         }

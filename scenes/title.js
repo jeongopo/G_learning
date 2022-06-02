@@ -9,50 +9,50 @@ export default class S_Title extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('title_back', "../assets/img/title_back.png");
-        this.load.image('title_btnback', "../assets/img/title_btnback.png");
+        this.load.image('hand', "../assets/img/hand.png")
+        this.load.image('title_startBtn', "../assets/img/startBtn.png");
+        // this.load.image('title_back', "../assets/img/title_back.png");
+        // this.load.image('title_btnback', "../assets/img/title_btnback.png");
     }
     create() {
-        this.add.image(600, 426, 'title_back');
-        this.add.image(600, 426, 'title_btnback');
-        let startButton = this.add.text(this.cameras.main.centerX, this.cameras.main.centerY, 'START', {
-                fontFamily: "NanumSquareRoundExtraBold",
-                stroke: '#FFFFFF',
-                strokeThickness : 10,
-                fill: '#000',
-                fontSize: '55px'
-            })
-            .setOrigin(0.5)
-            .setPadding(20)
-            .setInteractive({
-                useHandCursor: true
-            })
-            .on('pointerdown', () => {
-                this.scene.start('inGame');
-            })
-            .on('pointerover', () => startButton.setStyle({
-                fontFamily: "NanumSquareRoundExtraBold",
-                stroke: '#000',
-                strokeThickness : 10,
-                fill: '#FFF',
-                fontSize: '55px'
-            }))
-            .on('pointerout', () => startButton.setStyle({
-                fontFamily: "NanumSquareRoundExtraBold",
-                stroke: '#FFFFFF',
-                strokeThickness : 10,
-                fill: '#000',
-                fontSize: '55px'
-            }));
+        // 타이틀씬 손 이미지
+        const hand = this.add.image(750, 400, 'hand');
+        hand.setScale(1.3)
+            .alpha = 0.6;
 
-            
+        //타이틀 텍스트
+        const titleText = this.add.text(this.cameras.main.centerX, 300, 'MGMG', {
+            fontFamily: "Noto Sans KR",
+            fill:'#2C2340',
+            fontSize: '150px',
+            fontWeight: 'bold',
+        })
+        .setOrigin(0.5);
+
+        //타이틀씬 시작버튼
+        const startBtn = this.add.image(this.cameras.main.centerX, 760, 'title_startBtn');
+        startBtn.setScale(0.5)
+                .setInteractive({ seHandCursor: true })
+                .on('pointerdown', () => {
+                    this.scene.start('inGame');
+                }, this)
+                .on('pointerover', () => startBtn.setScale(0.55))
+                .on('pointerout', () => startBtn.setScale(0.5));
+
+        // 하단 설명 텍스트
+        const bottomText = this.add.text(this.cameras.main.centerX, 920, 'Web environment G-learning game project based on motion recognition', {
+            fontFamily: "Noto Sans KR",
+            fill:'#2C2340',
+            fontSize: '24px',
+        })
+        .setOrigin(0.5);
     }
 }
 
 const config = {
     type: Phaser.WEBGL,
-    width: 1200,
-    height: 853,
+    width: 1440,
+    height: 1024,
     audio: {
         disableWebAudio: true
     },
@@ -65,7 +65,7 @@ const config = {
             }
         }
     },
-    backgroundColor: '#FFF',
+    backgroundColor: '#E9FFB1',
     parent: 'phaser_canvas',
     dom: {
         createContainer: true
@@ -73,4 +73,4 @@ const config = {
     scene : [S_Title,S_InGame]
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);

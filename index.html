@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Rhythm game </title>
+    <title>Rhythm game</title>
     <script src="./lib/camera_utils.js" crossorigin="anonymous"></script>
     <script src="./lib/control_utils.js" crossorigin="anonymous"></script>
     <script src="./lib/drawing_utils.js" crossorigin="anonymous"></script>
@@ -10,8 +10,10 @@
 
     <script type="module" defer src="./lib/script.js"></script>
 
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
-    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.54.0/dist/phaser.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
     <script type="module" src="./scenes/ingame.js" ></script>
@@ -25,7 +27,7 @@
         </div>
         <div> 
             <video class="input_video" width="640px" height="360px"></video>
-            <canvas class="output_canvas" width="580px" height="320px"></canvas>
+            <canvas class="output_canvas" width="300px" height="180px"></canvas>
         </div>
     </div>
     <div id="phaser_canvas">
