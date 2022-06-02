@@ -6,7 +6,7 @@ body {
 }
 
 #phaser_canvas canvas {  
-  z-index: 1;
+  z-index: -1;
   /* position: relative; */
   display: block;
   margin: 0;
@@ -18,17 +18,18 @@ body {
   max-height: 50vw;
 }
 
-.input_video{
+.camera {
   display: none;
+
 }
 
-.camera{
+/* .camera{
   display: flex;
   position: absolute;
   justify-content: center;
   z-index: 2;
   bottom: 140px;
-}
+} */
 
 .handPos {
   text-align: center;

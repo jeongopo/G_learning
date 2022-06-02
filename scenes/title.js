@@ -21,15 +21,16 @@ export default class S_Title extends Phaser.Scene {
             .alpha = 0.6;
 
         //타이틀 텍스트
-        let titleText = this.add.text(this.cameras.main.centerX, 300, 'MGMG', {
+        const titleText = this.add.text(this.cameras.main.centerX, 300, 'MGMG', {
             fontFamily: "Noto Sans KR",
             fill:'#2C2340',
             fontSize: '150px',
+            fontWeight: 'bold',
         })
         .setOrigin(0.5);
 
         //타이틀씬 시작버튼
-        const startBtn = this.add.image(this.cameras.main.centerX, 800, 'title_startBtn');
+        const startBtn = this.add.image(this.cameras.main.centerX, 760, 'title_startBtn');
         startBtn.setScale(0.5)
                 .setInteractive({ seHandCursor: true })
                 .on('pointerdown', () => {
@@ -37,6 +38,14 @@ export default class S_Title extends Phaser.Scene {
                 }, this)
                 .on('pointerover', () => startBtn.setScale(0.55))
                 .on('pointerout', () => startBtn.setScale(0.5));
+
+        // 하단 설명 텍스트
+        const bottomText = this.add.text(this.cameras.main.centerX, 920, 'Web environment G-learning game project based on motion recognition', {
+            fontFamily: "Noto Sans KR",
+            fill:'#2C2340',
+            fontSize: '24px',
+        })
+        .setOrigin(0.5);
     }
 }
 
