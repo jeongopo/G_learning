@@ -1,6 +1,5 @@
 import {checkPos} from "../lib/script.js"
 
-
 export default class S_InGame extends Phaser.Scene {
     constructor() {
         super('inGame');
@@ -183,14 +182,18 @@ export default class S_InGame extends Phaser.Scene {
 
         //오브젝트 배치
         const upperbar = this.add.image(720, 70, 'upperbar').setScale(0.5);
-        const noteline = this.add.image(720, 260, 'noteline').setScale(0.5);
+        const noteline = this.add.image(720, 280, 'noteline').setScale(0.5);
 
-        const c_match = this.add.image(200, 260, 'C_match').setScale(0.5);
-        const c_tam = this.add.image(900, 600, 'C_tam').setScale(0.5);
+        const c_match = this.add.image(200, 280, 'C_match').setScale(0.5);
+        const c_tam = this.add.image(900, 620, 'C_tam').setScale(0.5);
         const tambourine = this.add.image(1080, 700, 'tambourine').setScale(0.4);
         tambourine.angle= 45;
 
-        const back_arrow = this.add.image(100, 70, 'back_arrow').setScale(0.5);
+        const back_arrow = this.add.image(100, 70, 'back_arrow')
+                            .setScale(0.5)
+                            .on('pointerdown', () => {
+                                this.scene.start('title');
+                            }, this);
 
         // 카메라 위치관련 ... 
         const camera = document.querySelector('.camera');
@@ -198,10 +201,10 @@ export default class S_InGame extends Phaser.Scene {
         const input_video = document.querySelector('.input_video');
         input_video.style.display = 'none';
         const output_canvas = document.querySelector('.output_canvas');
-        output_canvas.style = 'position: absolute; top: 65%; left: 33%; width:30%; transform: translate(-50%,-50%); border-radius: 20px';
+        output_canvas.style = 'position: absolute; top: 65%; left: 33%; width:30%; transform: translate(-50%,-50%); border-radius: 15px';
         
         //텍스트 배치
-        this.textEval = this.add.text(this.cameras.main.centerX, this.canvasHeight / 2, '', {
+        this.textEval = this.add.text(this.cameras.main.centerX, this.canvasHeight / 2 + 30, '', {
             fontFamily: "Noto Sans KR",
             fill: '#FBFF4F',
             fontSize: '30px',
@@ -242,7 +245,7 @@ export default class S_InGame extends Phaser.Scene {
         }, this);
 
         for (var i = 0; i < this.timearr.length; i++) {
-            let tem = this.add.image(1300, 260, 'C_tam').setScale(0.5);
+            let tem = this.add.image(1300, 280, 'C_tam').setScale(0.5);
             this.circleObjectArr.push([this.timearr[i][0], tem,this.timearr[i][1]]);
             console.log([this.timearr[i][0], tem,this.timearr[i][1]]);
         }
