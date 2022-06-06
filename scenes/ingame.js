@@ -12,7 +12,7 @@ export default class S_InGame extends Phaser.Scene {
         this.IsMusicOn = false;
         this.startTime;
         this.musicName;
-        this.emitter;
+        this.posText;
 
         this.canvasWidth = 1200;
         this.canvasHeight = 853;
@@ -66,7 +66,6 @@ export default class S_InGame extends Phaser.Scene {
         };
 
         this.push_W_Key = () => {
-            console.log("W 키 함수 실행 " + this.circleObjectArr.length);
             for (var i = 0; i < this.circleObjectArr.length; i++) {
                 if (this.circleObjectArr[i][0] == "W") {
                 if (this.evaluateNote(this.circleObjectArr[i][1])) {
@@ -81,8 +80,6 @@ export default class S_InGame extends Phaser.Scene {
             }
         }
         this.push_A_Key = () => {
-            //console.log("A 키 함수 실행 "+this.circleObjectArr.length);
-
             for (var i = 0; i < this.circleObjectArr.length; i++) {
                 if (this.circleObjectArr[i][0] == "A") {
                 if (this.evaluateNote(this.circleObjectArr[i][1])) {
@@ -96,7 +93,6 @@ export default class S_InGame extends Phaser.Scene {
             }
         }
         this.push_S_Key = () => {
-            //console.log("S 키 함수 실행 "+this.circleObjectArr.length);
             for (var i = 0; i < this.circleObjectArr.length; i++) {
                 if (this.circleObjectArr[i][0] == "S") {
                 if (this.evaluateNote(this.circleObjectArr[i][1])) {
@@ -110,7 +106,6 @@ export default class S_InGame extends Phaser.Scene {
             }
         }
         this.push_D_Key = () => {
-            //console.log("D 키 함수 실행 "+this.circleObjectArr.length);
             for (var i = 0; i < this.circleObjectArr.length; i++) {
                 if (this.circleObjectArr[i][0] == "D") {
                 if (this.evaluateNote(this.circleObjectArr[i][1])) {
@@ -170,15 +165,6 @@ export default class S_InGame extends Phaser.Scene {
     create() {
         console.log("create");
         //#region 디자인
-        /* 그라데이션 코드로 짜려다가 실패한 부분
-        var graphicsInstance = this.add.graphics();
-        graphicsInstance.fillGradientStyle(0xff0000, 0xff0000, 0x0000ff, 0x0000ff, 1);
-
-        graphics.fillCircle(300, 300, 200);
-
-        graphicsInstance.fillGradientStyle(0xAEFAFF, 0xAEFAFF, 0xA0C6FF, 0xA0C6FF, 1);
-        graphicsInstance.fillRect(0, 0, canvasWidth, canvasHeight);
-        */
 
         //오브젝트 배치
         const upperbar = this.add.image(720, 70, 'upperbar').setScale(0.5);
@@ -226,6 +212,16 @@ export default class S_InGame extends Phaser.Scene {
                 align: 'left'
             })
             .setOrigin(0.5);
+
+        this.posText = this.add.text(this.cameras.main.centerX, this.cameras.main.centerY, ' ', {
+            fontFamily: "Noto Sans KR",
+            fill: '#FBFF4F',
+            fontSize: '50px',
+            stroke: '#000',
+            strokeThickness: 10,
+        })
+        .setOrigin(0.5);
+
         //#endregion
 
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -233,16 +229,10 @@ export default class S_InGame extends Phaser.Scene {
         this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
-
-
         this.backMusic = this.sound.add('rhythm_music', {
             loop: false
         });
         this.startGame();
-        this.emitter = new Phaser.Events.EventEmitter();
-        this.emitter.on('PushW', () => {
-            this.push_W_Key();
-        }, this);
 
         for (var i = 0; i < this.timearr.length; i++) {
             let tem = this.add.image(1300, 280, 'C_tam').setScale(0.5);
@@ -255,12 +245,18 @@ export default class S_InGame extends Phaser.Scene {
         if (this.IsMusicOn) { //게임 시작 되면 update 시작
             switch(checkPos){
                 case 1 :  this.push_W_Key();
+                this.posText.setText("↖");
                 break;
                 case 2 : this.push_A_Key();
+                this.posText.setText("↙");
                 break;
                 case 3 : this.push_S_Key();
+                this.posText.setText("↗");
                 break;
                 case 4: this.push_D_Key();
+                this.posText.setText("↘");
+                break;
+                default : this.posText.setText(" ");
                 break;
             }
 
@@ -275,7 +271,6 @@ export default class S_InGame extends Phaser.Scene {
                 }
 
             }
-            //this.scoreText.setText(this.inGameGetTime());
             this.scoreText.setText(this.score + " POINTS");
         }
     }
