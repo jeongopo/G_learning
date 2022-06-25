@@ -39,29 +39,24 @@ export default class S_Result extends Phaser.Scene {
 
         let totalScore=scoreArr[0]*500+scoreArr[1]*300+scoreArr[2]*100;
         let grade="";
-        let outScore="";
         if(totalScore>=2000)    grade="S";
         else if(totalScore>=1500) grade="A";
         else if(totalScore>=1000) grade="B";
         else {
-            outScore+=" ";
             if(totalScore>=500) grade="C";
             else grade="F";
         }
-        if(totalScore==0)   outScore="   0";
-        else outScore+=totalScore;
 
-        this.add.text(880,500,outScore,{
+        this.add.text(this.cameras.main.centerX+235,530,totalScore,{
             font: "bold 70px Arial",
             fill: '#FFF',
-            align: 'center',
-        });
+        }).setOrigin(0.5);
 
-        this.add.text(this.cameras.main.centerX+190,350,grade,{
+        this.add.text(this.cameras.main.centerX+235,430,grade,{
             font: "bold 140px Arial",
             fill: '#ff1b83',
             align: 'center'
-        });
+        }).setOrigin(0.5);;
     }
 
 }
