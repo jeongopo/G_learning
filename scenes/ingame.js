@@ -13,55 +13,54 @@ export default class S_InGame extends Phaser.Scene {
         this.startTime;
         this.musicName;
         this.posText;
+        this.matchSound;
 
         this.canvasWidth = 1200;
         this.canvasHeight = 853;
 
         this.timearr = [ //[키,노트 타임]. 일단 W로만 만들어놓음
-            ['W', 17000],
-            ['A', 17400],
-            ['W', 17800],
-
-            ['W', 20600],
-            ['W', 21000],
-            ['W', 21400],
-
-            ['W', 23400],
-            ['W', 23600],
-            ['W', 23800],
-
-            ['W', 25000],
-            ['W', 25200],
-            ['W', 25400],
-
-            ['W', 27800],
-            ['W', 28200],
-            ['W', 28600],
-            // ['W', 5400],
-            // ['W', 5800]
+            ['W', 12300],
+            ['A', 14200],
+            ['S', 16100],
+            ['D', 18000],
+            ['W', 19800],
+            ['S', 21600],
+            ['A', 23400],
         ];
         this.scorenumarr = [500, 300, 100]; //판정별 점수
         this.evaltextcontent = ["Perfect!", "Good!", "Bad!"]; //판정별 대사
         this.circleObjectArr = [];
-        this.lastTime = [];
+        this.scoreArr=[0,0,0,0];
 
         this.speed = 0.5;
         this.score = 0;
+        this.IsGameEnd=false;
         //#endregion
 
         //#region 함수정의
         this.startGame = () => {
-            this.startTime = new Date();
-            this.lastTime[0] = new Date();
-            this.lastTime[1] = new Date();
-            this.lastTime[2] = new Date();
-            this.lastTime[3] = new Date();
-            this.IsMusicOn = true;
-
             setTimeout(() => {
-                console.log("노래 시작");
                 this.backMusic.play();
+                this.IsMusicOn = true;
+                this.startTime = new Date();
             }, 1500);
+
+            for (var i = 0; i < this.timearr.length; i++) {
+                let tem;
+                switch(this.timearr[i][0]){
+                    case 'W' :  tem = this.add.image(1800, 280, 'C_upLeft').setScale(0.5);
+                                break;
+                    case 'A' :  tem = this.add.image(1800, 280, 'C_downLeft').setScale(0.5);
+                                break;
+                    case 'S' :  tem = this.add.image(1800, 280, 'C_upRight').setScale(0.5);
+                                break;
+                    case 'D' :  tem = this.add.image(1800, 280, 'C_downRight').setScale(0.5);
+                                break;
+                }
+                this.circleObjectArr.push([this.timearr[i][0], tem,this.timearr[i][1]]);
+                document.getElementById("camera_canvas").style.display="block";
+            }
+
             return;
         };
 
@@ -72,8 +71,6 @@ export default class S_InGame extends Phaser.Scene {
                     this.circleObjectArr[i][1].destroy(false);
                     this.circleObjectArr.splice(i, 1);
                     i--;
-                    this.lastTime[0] = new Date();
-                    console.log("push_W_Key")
                     break;
                 }
                 }
@@ -86,7 +83,6 @@ export default class S_InGame extends Phaser.Scene {
                     this.circleObjectArr[i][1].destroy(false);
                     this.circleObjectArr.splice(i, 1);
                     i--;
-                    this.lastTime[1] = new Date();
                     break;
                 }
                 }
@@ -99,7 +95,6 @@ export default class S_InGame extends Phaser.Scene {
                     this.circleObjectArr[i][1].destroy(false);
                     this.circleObjectArr.splice(i, 1);
                     i--;
-                    this.lastTime[2] = new Date();
                     break;
                 }
                 }
@@ -112,7 +107,6 @@ export default class S_InGame extends Phaser.Scene {
                     this.circleObjectArr[i][1].destroy(false);
                     this.circleObjectArr.splice(i, 1);
                     i--;
-                    this.lastTime[3] = new Date();
                     break;
                 }
                  }
@@ -123,29 +117,36 @@ export default class S_InGame extends Phaser.Scene {
             return (new Date().getTime()) - this.startTime.getTime();
         }
 
-        this.distractTime = (i) => {
-            return (new Date().getTime()) - this.lastTime[i].getTime();
-        }
-
         this.getScore = (num) => {
             this.textEval.setText(this.evaltextcontent[num]);
+            this.scoreArr[num]++;
             this.score += this.scorenumarr[num];
         }
 
         this.evaluateNote = (note) => {
             if (note.x > 300) return false;
-            else if (note.x > 250) {
-                this.getScore(2);
-            } else if (note.x > 225) {
+            else if(note.x>250){
+                this.textEval.setStyle({fill: '#73d481'});
+                this.matchSound.play();
                 this.getScore(1);
-            } else if (note.x > 175) {
+            }
+            else if (note.x > 150) {
+                this.textEval.setStyle({fill: '#23a4f6'});
+                this.matchSound.play();
                 this.getScore(0);
-            } else if (note.x > 150) {
+            } else if (note.x > 100) {
+                this.textEval.setStyle({fill: '#73d481'});
+                this.matchSound.play();
                 this.getScore(1);
             } else {
+                this.textEval.setStyle({fill: '#FBFF4F'});
                 this.getScore(2);
             }
             return true;
+        }
+
+        this.getScoreArr=()=>{
+            return this.scoreArr;
         }
         //#endregion 함수정의
     }
@@ -156,22 +157,25 @@ export default class S_InGame extends Phaser.Scene {
         this.load.image('back_arrow', "./assets/img/back_arrow.png");
 
         this.load.image('C_match', "./assets/img/circle_match.png");
-        this.load.image('C_tam', "./assets/img/circle_tam.png");
+
+        this.load.image('C_downLeft', "./assets/img/donwLeft_arrow.png");
+        this.load.image('C_downRight', "./assets/img/donwRight_arrow.png");
+        this.load.image('C_upRight', "./assets/img/upRight_arrow.png");
+        this.load.image('C_upLeft', "./assets/img/upLeft_arrow.png");
 
         this.load.image('tambourine', "./assets/img/tambourine.png");
 
+        this.load.audio('matchSound', "./assets/sounds/tamSound.mp3");
         this.load.audio('rhythm_music', "./assets/bgm/rhythm_music.mp3");
     }
     create() {
-        console.log("create");
+        document.getElementById("camera_canvas").style.display="none";
         //#region 디자인
 
         //오브젝트 배치
         const upperbar = this.add.image(720, 70, 'upperbar').setScale(0.5);
         const noteline = this.add.image(720, 280, 'noteline').setScale(0.5);
-
         const c_match = this.add.image(200, 280, 'C_match').setScale(0.5);
-        const c_tam = this.add.image(900, 620, 'C_tam').setScale(0.5);
         const tambourine = this.add.image(1080, 700, 'tambourine').setScale(0.4);
         tambourine.angle= 45;
 
@@ -224,21 +228,11 @@ export default class S_InGame extends Phaser.Scene {
 
         //#endregion
 
-        this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-        this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-        this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-
+        this.matchSound=this.sound.add('matchSound',{loop:false});
         this.backMusic = this.sound.add('rhythm_music', {
             loop: false
         });
         this.startGame();
-
-        for (var i = 0; i < this.timearr.length; i++) {
-            let tem = this.add.image(1300, 280, 'C_tam').setScale(0.5);
-            this.circleObjectArr.push([this.timearr[i][0], tem,this.timearr[i][1]]);
-            console.log([this.timearr[i][0], tem,this.timearr[i][1]]);
-        }
     }
 
     update(time, delta) {
@@ -266,12 +260,21 @@ export default class S_InGame extends Phaser.Scene {
                     this.circleObjectArr.splice(i, 1);
                     i--;
                     this.textEval.setText("MISS");
+                    this.scoreArr[3]++;
                 } else if (this.circleObjectArr[i][2] <= this.inGameGetTime()) {
                     this.circleObjectArr[i][1].x -= this.speed * delta;
                 }
 
             }
             this.scoreText.setText(this.score + " POINTS");
+
+            if(this.inGameGetTime()>30000&&!this.IsGameEnd) {
+                console.log("노래 종료");
+                this.scene.launch('result');
+                this.IsMusicOn=false;
+                document.getElementById("camera_canvas").style.display="none";
+                this.backMusic.stop();
+            }
         }
     }
 
