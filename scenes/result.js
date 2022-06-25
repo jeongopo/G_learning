@@ -5,7 +5,7 @@ export default class S_Result extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('background', "../assets/img/RESULT_back.png")
+        this.load.image('background', "../assets/img/RESULT_back.png");
 
         this.load.image('retryBtn', "../assets/img/RESULT_retryBtn.png");
         this.load.image('menuBtn', "../assets/img/RESULT_menuBtn.png");
