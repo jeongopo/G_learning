@@ -1,4 +1,5 @@
 import S_InGame from "./ingame.js";
+import S_Result from "./result.js";
 
 export default class S_Title extends Phaser.Scene {
     constructor() {
@@ -70,7 +71,7 @@ const config = {
     dom: {
         createContainer: true
     },
-    scene : [S_Title,S_InGame]
+    scene : [S_Title,S_InGame,S_Result]
 };
 
 const game = new Phaser.Game(config);
