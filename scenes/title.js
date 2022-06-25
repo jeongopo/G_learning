@@ -1,6 +1,7 @@
 import S_InGame from "./ingame.js";
 import S_Result from "./result.js";
-
+import S_Select from './select.js';
+import S_Loading from './loading.js';
 export default class S_Title extends Phaser.Scene {
     constructor() {
         super({
@@ -10,7 +11,7 @@ export default class S_Title extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('hand', "../assets/img/hand.png")
+        this.load.image('hand', "../assets/img/hand.png");
         this.load.image('title_startBtn', "../assets/img/startBtn.png");
         // this.load.image('title_back', "../assets/img/title_back.png");
         // this.load.image('title_btnback', "../assets/img/title_btnback.png");
@@ -35,7 +36,7 @@ export default class S_Title extends Phaser.Scene {
         startBtn.setScale(0.5)
                 .setInteractive({ cursor: 'pointer'})
                 .on('pointerdown', () => {
-                    this.scene.start('inGame');
+                    this.scene.start('select');
                 }, this)
                 .on('pointerover', () => startBtn.setScale(0.55))
                 .on('pointerout', () => startBtn.setScale(0.5));
@@ -71,7 +72,7 @@ const config = {
     dom: {
         createContainer: true
     },
-    scene : [S_Title,S_InGame,S_Result]
+    scene : [S_Title,S_InGame,S_Result,S_Select,S_Loading]
 };
 
 const game = new Phaser.Game(config);
