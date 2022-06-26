@@ -215,7 +215,7 @@ export default class S_InGame extends Phaser.Scene {
         const input_video = document.querySelector('.input_video');
         input_video.style.display = 'none';
         const output_canvas = document.querySelector('.output_canvas');
-        output_canvas.style = 'position: absolute; top: 65%; left: 33%; width:30%; transform: translate(-50%,-50%); border-radius: 15px';
+        output_canvas.style = 'position: absolute;  margin-top:34%; margin-left:3%; width: 30%; border-radius: 15px;';
 
         //텍스트 배치
         this.textEval = this.add.text(this.cameras.main.centerX, this.canvasHeight / 2 + 30, '', {
@@ -300,6 +300,7 @@ export default class S_InGame extends Phaser.Scene {
             this.scoreText.setText(this.score + " POINTS");
 
             if (this.inGameGetTime() > 30000 && !this.IsGameEnd) {
+                /*
                 console.log("노래 종료");
                 this.IsGameEnd=true;
                 this.scene.launch('result');
@@ -307,6 +308,7 @@ export default class S_InGame extends Phaser.Scene {
                 document.getElementById("camera_canvas").style.display = "none";
                 document.getElementById("phaser_canvas").childNodes[2].style.zIndex=0;
                 this.backMusic.stop();
+                */
             }
         }
     }
