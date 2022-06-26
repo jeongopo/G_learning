@@ -1,4 +1,6 @@
-import {checkPos} from "../lib/script.js"
+import {
+    checkPos
+} from "../lib/script.js"
 
 export default class S_InGame extends Phaser.Scene {
     constructor() {
@@ -30,16 +32,17 @@ export default class S_InGame extends Phaser.Scene {
         this.scorenumarr = [500, 300, 100]; //판정별 점수
         this.evaltextcontent = ["Perfect!", "Good!", "Bad!"]; //판정별 대사
         this.circleObjectArr = [];
-        this.scoreArr=[0,0,0,0];
+        this.scoreArr = [0, 0, 0, 0];
 
         this.speed = 0.5;
         this.score = 0;
-        this.IsGameEnd=false;
+        this.IsGameEnd = false;
         //#endregion
 
         //#region 함수정의
         this.startGame = () => {
             setTimeout(() => {
+                if(this.IsGameEnd)  return;
                 this.backMusic.play();
                 this.IsMusicOn = true;
                 this.startTime = new Date();
@@ -47,18 +50,22 @@ export default class S_InGame extends Phaser.Scene {
 
             for (var i = 0; i < this.timearr.length; i++) {
                 let tem;
-                switch(this.timearr[i][0]){
-                    case 'W' :  tem = this.add.image(1800, 280, 'C_upLeft').setScale(0.5);
-                                break;
-                    case 'A' :  tem = this.add.image(1800, 280, 'C_downLeft').setScale(0.5);
-                                break;
-                    case 'S' :  tem = this.add.image(1800, 280, 'C_upRight').setScale(0.5);
-                                break;
-                    case 'D' :  tem = this.add.image(1800, 280, 'C_downRight').setScale(0.5);
-                                break;
+                switch (this.timearr[i][0]) {
+                    case 'W':
+                        tem = this.add.image(1800, 280, 'C_upLeft').setScale(0.5);
+                        break;
+                    case 'A':
+                        tem = this.add.image(1800, 280, 'C_downLeft').setScale(0.5);
+                        break;
+                    case 'S':
+                        tem = this.add.image(1800, 280, 'C_upRight').setScale(0.5);
+                        break;
+                    case 'D':
+                        tem = this.add.image(1800, 280, 'C_downRight').setScale(0.5);
+                        break;
                 }
-                this.circleObjectArr.push([this.timearr[i][0], tem,this.timearr[i][1]]);
-                document.getElementById("camera_canvas").style.display="block";
+                this.circleObjectArr.push([this.timearr[i][0], tem, this.timearr[i][1]]);
+                document.getElementById("camera_canvas").style.display = "block";
             }
 
             return;
@@ -67,49 +74,49 @@ export default class S_InGame extends Phaser.Scene {
         this.push_W_Key = () => {
             for (var i = 0; i < this.circleObjectArr.length; i++) {
                 if (this.circleObjectArr[i][0] == "W") {
-                if (this.evaluateNote(this.circleObjectArr[i][1])) {
-                    this.circleObjectArr[i][1].destroy(false);
-                    this.circleObjectArr.splice(i, 1);
-                    i--;
-                    break;
-                }
+                    if (this.evaluateNote(this.circleObjectArr[i][1])) {
+                        this.circleObjectArr[i][1].destroy(false);
+                        this.circleObjectArr.splice(i, 1);
+                        i--;
+                        break;
+                    }
                 }
             }
         }
         this.push_A_Key = () => {
             for (var i = 0; i < this.circleObjectArr.length; i++) {
                 if (this.circleObjectArr[i][0] == "A") {
-                if (this.evaluateNote(this.circleObjectArr[i][1])) {
-                    this.circleObjectArr[i][1].destroy(false);
-                    this.circleObjectArr.splice(i, 1);
-                    i--;
-                    break;
-                }
+                    if (this.evaluateNote(this.circleObjectArr[i][1])) {
+                        this.circleObjectArr[i][1].destroy(false);
+                        this.circleObjectArr.splice(i, 1);
+                        i--;
+                        break;
+                    }
                 }
             }
         }
         this.push_S_Key = () => {
             for (var i = 0; i < this.circleObjectArr.length; i++) {
                 if (this.circleObjectArr[i][0] == "S") {
-                if (this.evaluateNote(this.circleObjectArr[i][1])) {
-                    this.circleObjectArr[i][1].destroy(false);
-                    this.circleObjectArr.splice(i, 1);
-                    i--;
-                    break;
-                }
+                    if (this.evaluateNote(this.circleObjectArr[i][1])) {
+                        this.circleObjectArr[i][1].destroy(false);
+                        this.circleObjectArr.splice(i, 1);
+                        i--;
+                        break;
+                    }
                 }
             }
         }
         this.push_D_Key = () => {
             for (var i = 0; i < this.circleObjectArr.length; i++) {
                 if (this.circleObjectArr[i][0] == "D") {
-                if (this.evaluateNote(this.circleObjectArr[i][1])) {
-                    this.circleObjectArr[i][1].destroy(false);
-                    this.circleObjectArr.splice(i, 1);
-                    i--;
-                    break;
+                    if (this.evaluateNote(this.circleObjectArr[i][1])) {
+                        this.circleObjectArr[i][1].destroy(false);
+                        this.circleObjectArr.splice(i, 1);
+                        i--;
+                        break;
+                    }
                 }
-                 }
             }
         }
 
@@ -125,27 +132,34 @@ export default class S_InGame extends Phaser.Scene {
 
         this.evaluateNote = (note) => {
             if (note.x > 300) return false;
-            else if(note.x>250){
-                this.textEval.setStyle({fill: '#73d481'});
+            else if (note.x > 250) {
+                this.textEval.setStyle({
+                    fill: '#73d481'
+                });
                 this.matchSound.play();
                 this.getScore(1);
-            }
-            else if (note.x > 150) {
-                this.textEval.setStyle({fill: '#23a4f6'});
+            } else if (note.x > 150) {
+                this.textEval.setStyle({
+                    fill: '#23a4f6'
+                });
                 this.matchSound.play();
                 this.getScore(0);
             } else if (note.x > 100) {
-                this.textEval.setStyle({fill: '#73d481'});
+                this.textEval.setStyle({
+                    fill: '#73d481'
+                });
                 this.matchSound.play();
                 this.getScore(1);
             } else {
-                this.textEval.setStyle({fill: '#FBFF4F'});
+                this.textEval.setStyle({
+                    fill: '#FBFF4F'
+                });
                 this.getScore(2);
             }
             return true;
         }
 
-        this.getScoreArr=()=>{
+        this.getScoreArr = () => {
             return this.scoreArr;
         }
         //#endregion 함수정의
@@ -169,7 +183,9 @@ export default class S_InGame extends Phaser.Scene {
         this.load.audio('rhythm_music', "./assets/bgm/rhythm_music.mp3");
     }
     create() {
-        document.getElementById("camera_canvas").style.display="none";
+        document.getElementById("camera_canvas").style.display = "none";
+        document.getElementById("phaser_canvas").childNodes[2].style.zIndex=-1;
+        this.IsGameEnd = false;
         //#region 디자인
 
         //오브젝트 배치
@@ -177,13 +193,21 @@ export default class S_InGame extends Phaser.Scene {
         const noteline = this.add.image(720, 280, 'noteline').setScale(0.5);
         const c_match = this.add.image(200, 280, 'C_match').setScale(0.5);
         const tambourine = this.add.image(1080, 700, 'tambourine').setScale(0.4);
-        tambourine.angle= 45;
+        tambourine.angle = 45;
 
         const back_arrow = this.add.image(100, 70, 'back_arrow')
-                            .setScale(0.5)
-                            .on('pointerdown', () => {
-                                this.scene.start('title');
-                            }, this);
+            .setInteractive({
+                cursor: 'pointer'
+            })
+            .setScale(0.5)
+            .on('pointerdown', () => {
+                this.IsGameEnd=true;
+                document.getElementById("camera_canvas").style.display = "none";
+                this.backMusic.stop();
+                document.getElementById("phaser_canvas").childNodes[2].style.zIndex=0;
+
+                this.scene.start('select');
+            }, this);
 
         // 카메라 위치관련 ... 
         const camera = document.querySelector('.camera');
@@ -192,7 +216,7 @@ export default class S_InGame extends Phaser.Scene {
         input_video.style.display = 'none';
         const output_canvas = document.querySelector('.output_canvas');
         output_canvas.style = 'position: absolute; top: 65%; left: 33%; width:30%; transform: translate(-50%,-50%); border-radius: 15px';
-        
+
         //텍스트 배치
         this.textEval = this.add.text(this.cameras.main.centerX, this.canvasHeight / 2 + 30, '', {
             fontFamily: "Noto Sans KR",
@@ -209,7 +233,7 @@ export default class S_InGame extends Phaser.Scene {
                 align: 'center'
             })
             .setOrigin(0.5);
-        this.scoreText = this.add.text(this.canvasWidth+80, 73, '0 POINTS', {
+        this.scoreText = this.add.text(this.canvasWidth + 80, 73, '0 POINTS', {
                 fontFamily: "Noto Sans KR",
                 fill: '#FFF',
                 fontSize: '35px',
@@ -218,17 +242,19 @@ export default class S_InGame extends Phaser.Scene {
             .setOrigin(0.5);
 
         this.posText = this.add.text(this.cameras.main.centerX, this.cameras.main.centerY, ' ', {
-            fontFamily: "Noto Sans KR",
-            fill: '#FBFF4F',
-            fontSize: '50px',
-            stroke: '#000',
-            strokeThickness: 10,
-        })
-        .setOrigin(0.5);
+                fontFamily: "Noto Sans KR",
+                fill: '#FBFF4F',
+                fontSize: '50px',
+                stroke: '#000',
+                strokeThickness: 10,
+            })
+            .setOrigin(0.5);
 
         //#endregion
 
-        this.matchSound=this.sound.add('matchSound',{loop:false});
+        this.matchSound = this.sound.add('matchSound', {
+            loop: false
+        });
         this.backMusic = this.sound.add('rhythm_music', {
             loop: false
         });
@@ -237,21 +263,26 @@ export default class S_InGame extends Phaser.Scene {
 
     update(time, delta) {
         if (this.IsMusicOn) { //게임 시작 되면 update 시작
-            switch(checkPos){
-                case 1 :  this.push_W_Key();
-                this.posText.setText("↖");
-                break;
-                case 2 : this.push_A_Key();
-                this.posText.setText("↙");
-                break;
-                case 3 : this.push_S_Key();
-                this.posText.setText("↗");
-                break;
-                case 4: this.push_D_Key();
-                this.posText.setText("↘");
-                break;
-                default : this.posText.setText(" ");
-                break;
+            switch (checkPos) {
+                case 1:
+                    this.push_W_Key();
+                    this.posText.setText("↖");
+                    break;
+                case 2:
+                    this.push_A_Key();
+                    this.posText.setText("↙");
+                    break;
+                case 3:
+                    this.push_S_Key();
+                    this.posText.setText("↗");
+                    break;
+                case 4:
+                    this.push_D_Key();
+                    this.posText.setText("↘");
+                    break;
+                default:
+                    this.posText.setText(" ");
+                    break;
             }
 
             for (var i = 0; i < this.circleObjectArr.length; i++) { // MISS아니라면 움직이기
@@ -268,11 +299,13 @@ export default class S_InGame extends Phaser.Scene {
             }
             this.scoreText.setText(this.score + " POINTS");
 
-            if(this.inGameGetTime()>30000&&!this.IsGameEnd) {
+            if (this.inGameGetTime() > 30000 && !this.IsGameEnd) {
                 console.log("노래 종료");
+                this.IsGameEnd=true;
                 this.scene.launch('result');
-                this.IsMusicOn=false;
-                document.getElementById("camera_canvas").style.display="none";
+                this.IsMusicOn = false;
+                document.getElementById("camera_canvas").style.display = "none";
+                document.getElementById("phaser_canvas").childNodes[2].style.zIndex=0;
                 this.backMusic.stop();
             }
         }

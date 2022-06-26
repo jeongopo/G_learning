@@ -5,7 +5,6 @@ export default class S_Loading extends Phaser.Scene {
   this.startGame = () => {
     setTimeout(() => {
       this.scene.start('inGame');
-      this.scene.remove('loading')
     }, 2500);
   }
 }
