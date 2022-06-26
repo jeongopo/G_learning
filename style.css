@@ -5,8 +5,7 @@ body {
   /* background-color: aliceblue; */
 }
 
-#phaser_canvas canvas {  
-
+#phaser_canvas canvas {
   /* position: relative; */
   display: block;
   margin: 0;
@@ -21,6 +20,7 @@ body {
 
 .camera {
   display: none;
+  transform: rotateY(180deg);
 }
 
 /* .camera{
