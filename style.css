@@ -20,7 +20,6 @@ body {
 
 .camera {
   display: none;
-  transform: rotateY(180deg);
 }
 
 /* .camera{
