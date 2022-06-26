@@ -17,16 +17,19 @@ export default class S_Result extends Phaser.Scene {
         this.add.image(this.cameras.main.centerX-200, 700, 'retryBtn')
                 .setInteractive({ cursor: 'pointer'})
                 .on('pointerdown', () => {
-                    this.scene.restart('inGame');;
+                    document.getElementById("phaser_canvas").childNodes[2].style.zIndex=-1;
+                    this.scene.restart('inGame');
                 }, this);
 
         this.add.image(this.cameras.main.centerX+200, 700, 'menuBtn')
                 .setInteractive({ cursor: 'pointer'})
                 .on('pointerdown', () => {
-                    this.scene.start('title');
-                    this.scene.remove('inGame');
                     document.getElementById("camera_canvas").style.display="none";
+                    document.getElementById("phaser_canvas").childNodes[2].style.zIndex=0;
                     this.cameras.main.fade(2000, 0, 0, 0);
+
+                    this.scene.sleep('inGame');
+                    this.scene.start('select');
                 }, this);
 
         let scoreArr= this.scene.get('inGame').getScoreArr();

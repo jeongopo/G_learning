@@ -4,7 +4,7 @@ import S_Result from "./result.js";
 export default class S_Select extends Phaser.Scene {
   constructor(){
     super('select');
-}
+  }
 
   preload() {
       this.load.image('hand', "../assets/img/hand.png");
@@ -34,12 +34,12 @@ export default class S_Select extends Phaser.Scene {
     // 뒤로가기 버튼
     const select_back_arrow = this.add.image(80, 95, 'select_back_arrow');
     select_back_arrow.setScale(0.4)
+    .setInteractive({ cursor: 'pointer'})
     .on('pointerdown', () => {
       this.scene.start('title');
-      this.scene.remove('select')
       }, this)
-    .on('pointerover', () => startBtn.setScale(0.55))
-    .on('pointerout', () => startBtn.setScale(0.5));
+    .on('pointerover', () => select_back_arrow.setScale(0.4))
+    .on('pointerout', () => select_back_arrow.setScale(0.5));
 
     // 손 이미지
     const hand = this.add.image(450, 500, 'hand');
@@ -56,7 +56,6 @@ export default class S_Select extends Phaser.Scene {
     select_rhythm.setInteractive({ cursor: 'pointer'})
     .on('pointerdown', () => {
       this.scene.start('loading');
-      this.scene.remove('select');
       }, this)
 
     // 다른 노래 선택버튼(아직 구현X)

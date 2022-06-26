@@ -35,10 +35,12 @@ export default class S_Title extends Phaser.Scene {
         const startBtn = this.add.image(this.cameras.main.centerX, 760, 'title_startBtn');
         startBtn.setScale(0.5)
                 .setInteractive({ cursor: 'pointer'})
-                .on('pointerdown', () => {
+                .on('pointerdown', (event) => {
                     this.scene.start('select');
                 }, this)
-                .on('pointerover', () => startBtn.setScale(0.55))
+                .on('pointerover', (event) => {
+                    startBtn.setScale(0.6);
+                })
                 .on('pointerout', () => startBtn.setScale(0.5));
 
         // 하단 설명 텍스트
