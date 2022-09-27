@@ -32,7 +32,26 @@ export default class S_Town extends Phaser.Scene {
         })
         .setOrigin(0.5);
 
+        // 캐릭터 커스텀 버튼
+        const CustomBtn = this.add.text(500, 50, '커스텀 변경',{fontFamily: "Noto Sans KR",
+        fill:'#2C2340',
+        fontSize: '75px',
+        fontWeight: 'bold',
+        background :'FFF'});
+        CustomBtn.setScale(0.5)
+                .setInteractive({ cursor: 'pointer'})
+                .on('pointerdown', (event) => {
+                    this.changeCharacter(Math.max(1,(this.characterNum+1)%4));
+                }, this)
+                .on('pointerover', (event) => {
+                    CustomBtn.setScale(0.6);
+                })
+                .on('pointerout', () => CustomBtn.setScale(0.5));
+
+
         this.player = this.add.sprite(300,300,"player1");
+
+        
 
         //키 입력 설정
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
