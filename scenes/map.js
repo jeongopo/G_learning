@@ -6,12 +6,11 @@ export default class S_Map extends Phaser.Scene {
         this.keyDownState; // String: 현재 입력중인 키
     }
     preload(){
-        /* 캐릭터 */
-        this.load.spritesheet('player1', "../assets/characters/Females/F_01_2.png",{ frameWidth : 64, frameHeight : 68});
-        
         /* map */
         this.load.image("tiles", "../assets/tilesets/tuxmon-sample-32px.png");
         this.load.tilemapTiledJSON("map", "../assets/tilemaps/tuxmon-town.json");
+        /* 캐릭터 */
+        this.load.spritesheet('player1', "../assets/characters/Females/F_01_2.png",{ frameWidth : 64, frameHeight : 68});
     }
     create(){
         /* map */
