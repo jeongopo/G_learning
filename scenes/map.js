@@ -82,8 +82,6 @@ export default class S_Map extends Phaser.Scene {
         camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     }
     update(time, delta){
-        //this.player.body.setVelocity(0);
-
         // 키 입력 값에 따라 애니메이션을 실행하는 코드 . 상하좌우 순서.
         if(this.keyW.isDown){ 
             if(this.keyDownState!= "W") this.player.play('Up_W');
