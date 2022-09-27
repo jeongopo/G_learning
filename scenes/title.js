@@ -3,6 +3,8 @@ import S_Result from "./result.js";
 import S_Select from './select.js';
 import S_Loading from './loading.js';
 import S_Town from './town.js';
+import S_Map from "./map.js";
+
 export default class S_Title extends Phaser.Scene {
     constructor() {
         super({
@@ -38,7 +40,8 @@ export default class S_Title extends Phaser.Scene {
                 .setInteractive({ cursor: 'pointer'})
                 .on('pointerdown', (event) => {
                     //this.scene.start('select');
-                    this.scene.start('town');
+                    //this.scene.start('town');
+                    this.scene.start('map');
                 }, this)
                 .on('pointerover', (event) => {
                     startBtn.setScale(0.6);
@@ -65,7 +68,7 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false,
+            debug: true,
             gravity: {
                 y: 0
             }
@@ -76,7 +79,7 @@ const config = {
     dom: {
         createContainer: true
     },
-    scene : [S_Title,S_InGame,S_Result,S_Select,S_Loading,S_Town]
+    scene : [S_Title,S_InGame,S_Result,S_Select,S_Loading,S_Town,S_Map]
 };
 
 const game = new Phaser.Game(config);
