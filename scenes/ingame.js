@@ -2,6 +2,10 @@ import {
     checkPos
 } from "../lib/script.js"
 
+/**
+ * @author 남현정
+ * @file 리듬게임을 진행하는 씬 코드
+ */
 export default class S_InGame extends Phaser.Scene {
     constructor() {
         super('inGame');
@@ -40,6 +44,9 @@ export default class S_InGame extends Phaser.Scene {
         //#endregion
 
         //#region 함수정의
+        /**
+         * @brief 게임 시작 시의 변수 값, 오브젝트들 스폰하는 함수
+         */
         this.startGame = () => {
             setTimeout(() => {
                 if(this.IsGameEnd)  return;
@@ -71,6 +78,9 @@ export default class S_InGame extends Phaser.Scene {
             return;
         };
 
+         /**
+         * @brief W 케이스에 대해 노트 판정을 진행시키고, 오브젝트 제거하는 함수
+         */
         this.push_W_Key = () => {
             for (var i = 0; i < this.circleObjectArr.length; i++) {
                 if (this.circleObjectArr[i][0] == "W") {
@@ -83,6 +93,9 @@ export default class S_InGame extends Phaser.Scene {
                 }
             }
         }
+        /**
+         * @brief A 케이스에 대해 노트 판정을 진행시키고, 오브젝트 제거하는 함수
+         */
         this.push_A_Key = () => {
             for (var i = 0; i < this.circleObjectArr.length; i++) {
                 if (this.circleObjectArr[i][0] == "A") {
@@ -95,6 +108,9 @@ export default class S_InGame extends Phaser.Scene {
                 }
             }
         }
+        /**
+         * @brief S 케이스에 대해 노트 판정을 진행시키고, 오브젝트 제거하는 함수
+         */
         this.push_S_Key = () => {
             for (var i = 0; i < this.circleObjectArr.length; i++) {
                 if (this.circleObjectArr[i][0] == "S") {
@@ -107,6 +123,9 @@ export default class S_InGame extends Phaser.Scene {
                 }
             }
         }
+        /**
+         * @brief D 케이스에 대해 노트 판정을 진행시키고, 오브젝트 제거하는 함수
+         */
         this.push_D_Key = () => {
             for (var i = 0; i < this.circleObjectArr.length; i++) {
                 if (this.circleObjectArr[i][0] == "D") {
@@ -120,16 +139,34 @@ export default class S_InGame extends Phaser.Scene {
             }
         }
 
+        /**
+         * @brief 현재 게임 진행 시간 계산하여 반환하는 함수
+         * @return 현재까지의 진행 시간을 int로 반환
+         */
         this.inGameGetTime = () => {
             return (new Date().getTime()) - this.startTime.getTime();
         }
 
+        /**
+         * @brief 판정 결과를 출력하면서 점수 계산하는 함수
+         * @param num 0 : Perfect, 1 : Good , 2 : Bad 
+         */
         this.getScore = (num) => {
             this.textEval.setText(this.evaltextcontent[num]);
             this.scoreArr[num]++;
             this.score += this.scorenumarr[num];
         }
 
+        /**
+        * @brief 노트 평가하는 코드
+        * @detail BAD : x > 300 or x < 100,
+        * Good : x > 250 or x < 150,
+        * Perfect : 150 < x < 250,
+        * 
+        * @param note 현대 평가하려는 코드
+        * 
+        * @return 판정이 가능하면 True, 불가능하면 False
+        */
         this.evaluateNote = (note) => {
             if (note.x > 300) return false;
             else if (note.x > 250) {
