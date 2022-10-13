@@ -149,7 +149,7 @@ export default class S_InGame extends Phaser.Scene {
 
         /**
          * @brief 판정 결과를 출력하면서 점수 계산하는 함수
-         * @param num 0 : Perfect, 1 : Good , 2 : Bad 
+         * @param {int} num 0 : Perfect, 1 : Good , 2 : Bad 
          */
         this.getScore = (num) => {
             this.textEval.setText(this.evaltextcontent[num]);
@@ -163,7 +163,7 @@ export default class S_InGame extends Phaser.Scene {
         * Good : x > 250 or x < 150,
         * Perfect : 150 < x < 250,
         * 
-        * @param note 현대 평가하려는 코드
+        * @param {object} note 현대 평가하려는 코드
         * 
         * @return 판정이 가능하면 True, 불가능하면 False
         */
