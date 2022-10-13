@@ -1,3 +1,7 @@
+/**
+ * @author 남현정
+ * @file 맵 내부에서 캐릭터가 움직이고 돌아다니는 전반적인 코드
+ */
 export default class S_Town extends Phaser.Scene {
     constructor(){
       super('town');
@@ -6,8 +10,13 @@ export default class S_Town extends Phaser.Scene {
       this.keyDownState; // String: 현재 입력중인 키
       this.IsRight = true; // Bool : 오른쪽을 보고 있으면 True
       this.characterNum = 1; // int: 캐릭터 스프라이트 번호
-      this.coin = 0; this.coinText; // int : 유저가 가지고 있는 coin 개수
+      this.coinText; // Text : 유저가 가지고 있는 coin 개수 Text 오브젝트
 
+      /**
+       * @brief 특정 커스텀 번호로 캐릭터의 커스텀을 변경하는 함수
+       * 
+       * @param {int} num 변경될 커스텀 번호
+       */
       this.changeCharacter = (num) => {
         this.player.stop();
         this.characterNum = num;
@@ -23,7 +32,7 @@ export default class S_Town extends Phaser.Scene {
 
     create() {
         //UI 구성
-        this.coinText = this.add.text(1300,50,"Coin : " +this.coin, {
+        this.coinText = this.add.text(1300,50,"Coin : "+this.scene.get('userdata').gold, {
             fontFamily: "Noto Sans KR",
             fill: '#FFF',
             fontSize: '50px',
@@ -32,26 +41,27 @@ export default class S_Town extends Phaser.Scene {
         })
         .setOrigin(0.5);
 
-        // 캐릭터 커스텀 버튼
-        const CustomBtn = this.add.text(500, 50, '커스텀 변경',{fontFamily: "Noto Sans KR",
-        fill:'#2C2340',
-        fontSize: '75px',
+        /**
+         * @todo 이후 상점 충돌 시 나타나게 변경하기
+         */
+        // 상점 버튼
+        const ShopBtn = this.add.text(700, 50, '상점 열기',{fontFamily: "Noto Sans KR",
+        fill:'#000000',
+        fontSize: '50px',
         fontWeight: 'bold',
         background :'FFF'});
-        CustomBtn.setScale(0.5)
+        ShopBtn.setScale(0.5)
                 .setInteractive({ cursor: 'pointer'})
+                .off('pointerdown')
                 .on('pointerdown', (event) => {
-                    this.changeCharacter(Math.max(1,(this.characterNum+1)%4));
+                    this.scene.launch('shop');
                 }, this)
                 .on('pointerover', (event) => {
-                    CustomBtn.setScale(0.6);
+                    ShopBtn.setScale(0.6);
                 })
-                .on('pointerout', () => CustomBtn.setScale(0.5));
+                .on('pointerout', () => ShopBtn.setScale(0.5));        
 
-
-        this.player = this.add.sprite(300,300,"player1");
-
-        
+        this.player = this.add.sprite(300,300,"player1");        
 
         //키 입력 설정
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -100,11 +110,6 @@ export default class S_Town extends Phaser.Scene {
             frameRate: 30,
             repeat: -1
         });
-
-
-        this.keyOne = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
-        this.keyTwo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
-        this.keyThree = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
     }
 
     update(time, delta) {
@@ -136,14 +141,5 @@ export default class S_Town extends Phaser.Scene {
             this.keyDownState = "Idle";
             this.player.play('Idle_'+this.characterNum);
         }
-
-        // 키 입력에 따라 캐릭터 이미지를 커스터마이징. (123)
-        if(this.keyOne.isDown){
-            this.changeCharacter(1);
-        }else if(this.keyTwo.isDown){
-            this.changeCharacter(2);
-        }else if(this.keyThree.isDown)  this.changeCharacter(3);
-        
-
     } //update()
 }
