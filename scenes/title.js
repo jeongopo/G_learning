@@ -40,7 +40,7 @@ export default class S_Title extends Phaser.Scene {
                 .setInteractive({ cursor: 'pointer'})
                 .on('pointerdown', (event) => {
                     //this.scene.start('select');
-                    this.scene.get('userdata').init();
+                    this.scene.get('userdata').init("익명");
                     this.scene.start('town');
                 }, this)
                 .on('pointerover', (event) => {
