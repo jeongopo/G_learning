@@ -49,10 +49,11 @@ export default class S_Title extends Phaser.Scene {
         (event) => {
           //this.scene.start('select');
           //this.scene.start('town');
+
+          this.scene.get("userdata").init("익명");
           this.scene.start("map");
 
-          // this.scene.get('userdata').init("익명");
-          // this.scene.start('town');
+          //this.scene.start("town");
         },
         this
       )
