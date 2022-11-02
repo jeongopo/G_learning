@@ -4,7 +4,8 @@ import S_Select from "./select.js";
 import S_Loading from "./loading.js";
 import S_Town from "./town.js";
 import S_Map from "./map.js";
-
+import S_Shop from "./shop.js";
+import S_UserData from "./userdata.js";
 export default class S_Title extends Phaser.Scene {
   constructor() {
     super({
@@ -49,6 +50,9 @@ export default class S_Title extends Phaser.Scene {
           //this.scene.start('select');
           //this.scene.start('town');
           this.scene.start("map");
+
+          // this.scene.get('userdata').init("익명");
+          // this.scene.start('town');
         },
         this
       )
@@ -94,7 +98,17 @@ const config = {
   dom: {
     createContainer: true,
   },
-  scene: [S_Title, S_InGame, S_Result, S_Select, S_Loading, S_Town, S_Map],
+  scene: [
+    S_Title,
+    S_InGame,
+    S_Result,
+    S_Select,
+    S_Loading,
+    S_Map,
+    S_Town,
+    S_Shop,
+    S_UserData,
+  ],
 };
 
 const game = new Phaser.Game(config);
