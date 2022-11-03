@@ -8,6 +8,24 @@ export default class S_Map extends Phaser.Scene {
     this.keyS;
     this.keyD; //Phaser3 키 입력 리스너
     this.keyDownState; // String: 현재 입력중인 키
+    this.characterNum = 1; // int: 캐릭터 스프라이트 번호
+    this.coinText; // Text : 유저가 가지고 있는 coin 개수 Text 오브젝트
+    this.ShopBtn; // Text: 상점 열기 위한 텍스트 오브젝트
+    this.GameBtn;
+
+
+      /**
+     * @brief 특정 커스텀 번호로 캐릭터의 커스텀을 변경하는 함수
+     *
+     * @param {int} num 변경될 커스텀 번호
+     */
+       this.changeCharacter = (num) => {
+        this.player.stop();
+        this.characterNum = num + 1;
+        this.player.setTexture("player" + this.characterNum);
+        this.UserCharacterImg.setTexture("Pre_player" + this.characterNum);
+        this.scene.get("userdata").userCharacter = this.characterNum;
+      };  
   }
   preload() {
     /* map */
@@ -16,11 +34,24 @@ export default class S_Map extends Phaser.Scene {
     /* 캐릭터 */
     this.load.spritesheet(
       "player1",
-      "../assets/characters/Females/F_01_2.png",
-      { frameWidth: 64, frameHeight: 68 }
+      "../assets/characters/Monsters/Pink_Monster_Walk_6.png",
+      { frameWidth: 96, frameHeight: 96 }
     );
+    this.load.spritesheet(
+      "player2",
+      "../assets/characters/Monsters/Owlet_Monster_Walk_6.png",
+      { frameWidth: 96, frameHeight: 96 }
+    );
+    this.load.spritesheet(
+      "player3",
+      "../assets/characters/Monsters/Dude_Monster_Walk_6.png",
+      { frameWidth: 96, frameHeight: 96 }
+    );
+
   }
   create() {
+    this.IsRight = true;
+
     /* map */
     const map = this.make.tilemap({ key: "map" });
     const tileset = map.addTilesetImage("tuxmon-sample-32px", "tiles");
@@ -42,53 +73,68 @@ export default class S_Map extends Phaser.Scene {
     this.player = this.physics.add.sprite(
       spawnPoint.x,
       spawnPoint.y,
-      "player1"
+      "player" + this.characterNum
     );
 
     this.physics.add.collider(this.player, worldLayer);
 
+    //UI 구성
+    
+
     // //키 입력 설정
-    // this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-    // this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-    // this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-    // this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.up);
+    this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.left);
+    this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.down);
+    this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.right);
 
     //캐릭터 애니메이션 설정
     this.anims.create({
-      key: "Idle",
+      key: "Idle_1",
       frames: this.anims.generateFrameNumbers("player1", { frames: [0] }),
       frameRate: 20,
     });
 
     this.anims.create({
-      key: "Up_W",
+      key: "Walk_1",
       frames: this.anims.generateFrameNumbers("player1", {
-        frames: [2, 6, 10],
+        frames: [0, 1, 2, 3, 4, 5],
       }),
-      frameRate: 8,
-      repeat: -1,
-    });
-    this.anims.create({
-      key: "Down_S",
-      frames: this.anims.generateFrameNumbers("player1", { frames: [0, 4, 8] }),
-      frameRate: 8,
-      repeat: -1,
-    });
-    this.anims.create({
-      key: "Left_A",
-      frames: this.anims.generateFrameNumbers("player1", {
-        frames: [3, 7, 11],
-      }),
-      frameRate: 8,
-      repeat: -1,
-    });
-    this.anims.create({
-      key: "Right_D",
-      frames: this.anims.generateFrameNumbers("player1", { frames: [1, 5, 9] }),
-      frameRate: 8,
+      frameRate: 30,
       repeat: -1,
     });
 
+    //Player2 캐릭터 애니메이션
+    this.anims.create({
+      key: "Idle_2",
+      frames: this.anims.generateFrameNumbers("player2", { frames: [0] }),
+      frameRate: 20,
+    });
+
+    this.anims.create({
+      key: "Walk_2",
+      frames: this.anims.generateFrameNumbers("player2", {
+        frames: [0, 1, 2, 3, 4, 5],
+      }),
+      frameRate: 30,
+      repeat: -1,
+    });
+
+    //player3 캐릭터 애니메이션
+    this.anims.create({
+      key: "Idle_3",
+      frames: this.anims.generateFrameNumbers("player3", { frames: [0] }),
+      frameRate: 20,
+    });
+
+    this.anims.create({
+      key: "Walk_3",
+      frames: this.anims.generateFrameNumbers("player3", {
+        frames: [0, 1, 2, 3, 4, 5],
+      }),
+      frameRate: 30,
+      repeat: -1,
+    });
+    
     const camera = this.cameras.main;
     camera.startFollow(this.player);
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -108,6 +154,8 @@ export default class S_Map extends Phaser.Scene {
         faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
       });
     });
+
+    this.scene.get('userdata').showUserUI();
   }
   update(time, delta) {
     const speed = 300;
@@ -115,66 +163,48 @@ export default class S_Map extends Phaser.Scene {
 
     this.player.body.setVelocity(0);
 
+    
     // Horizontal movement
     if (this.cursors.left.isDown) {
+      if (this.keyDownState != "A")
+      this.player.play("Walk_" + this.characterNum);
+      if (this.IsRight) {
+        this.player.toggleFlipX();
+        this.IsRight = false;
+      }
+      this.keyDownState = "A";
       this.player.body.setVelocityX(-speed);
+      this.IsRight = false;
     } else if (this.cursors.right.isDown) {
+      if (this.keyDownState != "D")
+        this.player.play("Walk_" + this.characterNum);
+      if (!this.IsRight) this.player.toggleFlipX();
+      this.keyDownState = "D";
+      this.IsRight = true;
       this.player.body.setVelocityX(speed);
     }
-
     // Vertical movement
-    if (this.cursors.up.isDown) {
+    else if (this.cursors.up.isDown) {
+      if (this.keyDownState != "W")
+        this.player.play("Walk_" + this.characterNum);
       this.player.body.setVelocityY(-speed);
+      this.keyDownState = "W";
     } else if (this.cursors.down.isDown) {
+      if (this.keyDownState != "S")
+        this.player.play("Walk_" + this.characterNum);
+      this.keyDownState = "S";
       this.player.body.setVelocityY(speed);
+    }else if (
+      this.keyW.isUp &&
+      this.keyA.isUp &&
+      this.keyS.isUp &&
+      this.keyD.isUp
+    ) {
+      this.keyDownState = "Idle";
+      this.player.play("Idle_" + this.characterNum);
     }
-
     // Normalize and scale the velocity so that player can't move faster along a diagonal
     this.player.body.velocity.normalize().scale(speed);
 
-    // Update the animation last and give left/right animations precedence over up/down animations
-    if (this.cursors.left.isDown) {
-      this.player.anims.play("Left_A", true);
-    } else if (this.cursors.right.isDown) {
-      this.player.anims.play("Right_D", true);
-    } else if (this.cursors.up.isDown) {
-      this.player.anims.play("Up_W", true);
-    } else if (this.cursors.down.isDown) {
-      this.player.anims.play("Down_S", true);
-    } else {
-      this.player.anims.play("Idle", true);
-
-      // // If we were moving, pick and idle frame to use
-      // if (prevVelocity.x < 0) player.setTexture("atlas", "misa-left");
-      // else if (prevVelocity.x > 0) player.setTexture("atlas", "misa-right");
-      // else if (prevVelocity.y < 0) player.setTexture("atlas", "misa-back");
-      // else if (prevVelocity.y > 0) player.setTexture("atlas", "misa-front");
-    }
-    // 키 입력 값에 따라 애니메이션을 실행하는 코드 . 상하좌우 순서.
-    // if (this.keyW.isDown) {
-    //   if (this.keyDownState != "W") this.player.play("Up_W");
-    //   this.keyDownState = "W";
-    //   this.player.y += -0.5 * delta;
-    // } else if (this.keyS.isDown) {
-    //   if (this.keyDownState != "S") this.player.play("Down_S");
-    //   this.keyDownState = "S";
-    //   this.player.y += 0.5 * delta;
-    // } else if (this.keyA.isDown) {
-    //   if (this.keyDownState != "A") this.player.play("Left_A");
-    //   this.keyDownState = "A";
-    //   this.player.x += -0.5 * delta;
-    // } else if (this.keyD.isDown) {
-    //   if (this.keyDownState != "D") this.player.play("Right_D");
-    //   this.keyDownState = "D";
-    //   this.player.x += 0.5 * delta;
-    // } else if (
-    //   this.keyW.isUp &&
-    //   this.keyA.isUp &&
-    //   this.keyS.isUp &&
-    //   this.keyD.isUp
-    // ) {
-    //   this.keyDownState = "Idle";
-    //   this.player.play("Idle");
-    // }
   }
 }
