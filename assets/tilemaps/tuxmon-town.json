@@ -47,7 +47,7 @@
         {
          "draworder":"topdown",
          "id":6,
-         "name":"Objects",
+         "name":"Spawn Objects",
          "objects":[
                 {
                  "class":"",
@@ -57,8 +57,63 @@
                  "rotation":0,
                  "visible":true,
                  "width":32,
-                 "x":1388.53507678056,
-                 "y":291.764705882353
+                 "x":1388.54,
+                 "y":291.765
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":9,
+         "name":"Music Point",
+         "objects":[
+                {
+                 "class":"",
+                 "height":32,
+                 "id":22,
+                 "name":"Music Point",
+                 "rotation":0,
+                 "visible":true,
+                 "width":32,
+                 "x":930.52,
+                 "y":415.43
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":10,
+         "name":"Store Point",
+         "objects":[
+                {
+                 "class":"",
+                 "height":32,
+                 "id":18,
+                 "name":"Store Point",
+                 "rotation":0,
+                 "visible":true,
+                 "width":32,
+                 "x":545.42,
+                 "y":995.52
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":25,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":-118.122474354989,
+                 "y":519.117189928505
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -66,8 +121,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":7,
- "nextobjectid":3,
+ "nextlayerid":11,
+ "nextobjectid":26,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.2",
