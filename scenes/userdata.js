@@ -68,7 +68,7 @@ export default class S_UserData extends Phaser.Scene {
             this.UserLevel = this.add.text(
             200,
             20,
-            this.scene.get("userdata").GetUserLevel() + "레벨",
+            this.GetUserLevel() + "레벨",
             {
                 fontFamily: "Noto Sans KR",
                 fill: "#000000",

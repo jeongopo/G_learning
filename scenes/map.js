@@ -12,7 +12,11 @@ export default class S_Map extends Phaser.Scene {
     this.coinText; // Text : 유저가 가지고 있는 coin 개수 Text 오브젝트
     this.ShopBtn; // Text: 상점 열기 위한 텍스트 오브젝트
     this.GameBtn;
-
+    this.InStoreUI = false;
+    this.InMusic = false;
+    this.musicPoint;
+    this.musicObject;
+    this.storeObject;
 
       /**
      * @brief 특정 커스텀 번호로 캐릭터의 커스텀을 변경하는 함수
@@ -23,9 +27,27 @@ export default class S_Map extends Phaser.Scene {
         this.player.stop();
         this.characterNum = num + 1;
         this.player.setTexture("player" + this.characterNum);
-        this.UserCharacterImg.setTexture("Pre_player" + this.characterNum);
+        this.scene.get('userdata').UserCharacterImg.setTexture("Pre_player" + this.characterNum);
         this.scene.get("userdata").userCharacter = this.characterNum;
       };  
+
+      this.EntryStore = ()=>{
+        if(!this.InStoreUI){
+          this.InStoreUI = true;
+          if(confirm("상점에 입장하시겠습니까?")){
+            this.scene.launch('shop');       
+          }
+        }
+      }
+      this.EntryMusic = () => {
+        if(!this.InMusic){
+          this.InMusic = true;
+          if(confirm("음악 연주로 이동하시겠습니까?")){
+            this.scene.start('select');
+          }
+        }
+      }
+
   }
   preload() {
     /* map */
@@ -48,6 +70,7 @@ export default class S_Map extends Phaser.Scene {
       { frameWidth: 96, frameHeight: 96 }
     );
 
+    this.load.image("tem", "../img/RESULT_back.png");
   }
   create() {
     this.IsRight = true;
@@ -65,9 +88,22 @@ export default class S_Map extends Phaser.Scene {
     aboveLayer.setDepth(10);
 
     const spawnPoint = map.findObject(
-      "Objects",
+      "Spawn Objects",
       (obj) => obj.name === "Spawn Point"
     );
+
+    this.musicPoint = map.findObject(
+      "Music Point",
+      (obj) => obj.name === "Music Point"
+    );
+    if(this.musicPoint == null)  console.error("can't find \'MusicPoint\'");
+    console.log(this.musicPoint);
+
+    const storePoint = map.findObject(
+      "Store Point",
+      (obj) => obj.name === "Store Point"
+    );
+    if(storePoint == null)  console.error("can't find \'StorePoint\'");
 
     /* 캐릭터 */
     this.player = this.physics.add.sprite(
@@ -76,10 +112,18 @@ export default class S_Map extends Phaser.Scene {
       "player" + this.characterNum
     );
 
-    this.physics.add.collider(this.player, worldLayer);
+    this.musicObject = this.physics.add.image(
+      this.musicPoint.x,
+      this.musicPoint.y,
+      "tem"
+    );
+    this.storeObject = this.physics.add.image(
+      storePoint.x,
+      storePoint.y,
+      "tem"
+    );
 
-    //UI 구성
-    
+    this.physics.add.collider(this.player, worldLayer);
 
     // //키 입력 설정
     this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.up);
@@ -206,5 +250,11 @@ export default class S_Map extends Phaser.Scene {
     // Normalize and scale the velocity so that player can't move faster along a diagonal
     this.player.body.velocity.normalize().scale(speed);
 
+    if(!this.physics.overlap(this.player, this.storeObject, this.EntryStore,null,this)){
+      this.InStoreUI = false;
+    }
+    if(!this.physics.overlap(this.player,this.musicObject, this.EntryMusic, null,this)){
+      this.InMusic = false;
+    }
   }
 }

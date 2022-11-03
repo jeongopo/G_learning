@@ -15,19 +15,19 @@ export default class S_Shop extends Phaser.Scene {
         **/
         this.checkPossibleAction = (num) =>{
             if(this.scene.get('userdata').HasCustom(num) == true){
-                this.customBtn[this.scene.get('town').characterNum - 1].setText("장착");
+                this.customBtn[this.scene.get('map').characterNum - 1].setText("장착");
                 this.customBtn[num].setText("장착 중");
-                this.scene.get('town').changeCharacter(num);
+                this.scene.get('map').changeCharacter(num);
                 alert("커스텀을 변경했습니다!");
             }else { //커스텀 구매
                 if(confirm("커스텀 " + num + "번을 구매하시겠습니까?") == true){
                         if(this.scene.get('userdata').gold >= this.Prices[num]){
                             this.scene.get('userdata').BuyCustom(num,this.Prices[num]);
-                            this.customBtn[this.scene.get('town').characterNum - 1].setText("장착");
+                            this.customBtn[this.scene.get('map').characterNum - 1].setText("장착");
                             this.customBtn[num].setText("장착 중");
-                            this.scene.get('town').coinText.setText("💰 Coin : "+this.scene.get('userdata').gold);
+                            this.scene.get('userdata').coinText.setText("💰 Coin : "+this.scene.get('userdata').gold);
                             if(confirm("구매 완료! 바로 변경하시겠습니까?") == true){
-                                this.scene.get('town').changeCharacter(num);
+                                this.scene.get('map').changeCharacter(num);
                             }
                     }else alert("소지중인 골드가 부족합니다!");
                 }
@@ -128,6 +128,7 @@ export default class S_Shop extends Phaser.Scene {
                     cursor: 'pointer'
                 })
                 .on('pointerdown', (event) => {
+
                     this.scene.sleep('shop');
                 }, this)
                 .on('pointerover', (event) => {
@@ -135,12 +136,10 @@ export default class S_Shop extends Phaser.Scene {
                 })
                 .on('pointerout', () => this.ClostBtn.setScale(0.5));
 
-        console.log("캐릭터번호 " , this.scene.get('town').characterNum - 1 );
         for(var i=0 ; i<3 ; i++){
             if(this.scene.get('userdata').HasCustom(i) == true) this.customBtn[i].setText("장착");
             else {this.customBtn[i].setText("💰 "+ this.Prices[i]);}
-            if(this.scene.get('town').characterNum -1 == i)   this.customBtn[i].setText("장착중");
+            if(this.scene.get('map').characterNum -1 == i)   this.customBtn[i].setText("장착중");
         }
-        
     }
 }

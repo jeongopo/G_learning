@@ -30,7 +30,7 @@ export default class S_Result extends Phaser.Scene {
                     this.cameras.main.fade(2000, 0, 0, 0);
 
                     this.scene.sleep('inGame');
-                    this.scene.start('town');
+                    this.scene.start('map');
                 }, this);
 
         let scoreArr= this.scene.get('inGame').getScoreArr();
