@@ -6,6 +6,7 @@ import S_Town from "./town.js";
 import S_Map from "./map.js";
 import S_Shop from "./shop.js";
 import S_UserData from "./userdata.js";
+import S_SelectInstrument from "./select_instrument.js";
 export default class S_Title extends Phaser.Scene {
   constructor() {
     super({
@@ -47,11 +48,11 @@ export default class S_Title extends Phaser.Scene {
       .on(
         "pointerdown",
         (event) => {
-          //this.scene.start('select');
+          this.scene.start("select");
           //this.scene.start('town');
 
-          this.scene.get("userdata").init("익명");
-          this.scene.start("map");
+          //this.scene.get("userdata").init("익명");
+          //this.scene.start("map");
 
           //this.scene.start("town");
         },
@@ -104,6 +105,7 @@ const config = {
     S_InGame,
     S_Result,
     S_Select,
+    S_SelectInstrument,
     S_Loading,
     S_Map,
     S_Town,

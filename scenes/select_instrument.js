@@ -1,17 +1,23 @@
 import S_InGame from "./ingame.js";
 import S_Result from "./result.js";
 
-export default class S_Select extends Phaser.Scene {
+export default class S_SelectInstrument extends Phaser.Scene {
   constructor() {
-    super("select");
+    super("select_instrument");
   }
 
   preload() {
     this.load.image("hand", "../assets/img/hand.png");
     this.load.image("heartnote", "../assets/img/heartnote.png");
     this.load.image("select_back_arrow", "../assets/img/select_back_arrow.png");
+
     this.load.image("select_rhythm", "assets/img/select_rhythm.png");
     this.load.image("select_other", "assets/img/select_other.png");
+
+    this.load.image("tambourine_btn", "assets/img/button/tambourine_btn.png");
+    this.load.image("castanets_btn", "assets/img/button/castanets_btn.png");
+    this.load.image("triangle_btn", "assets/img/button/triangle_btn.png");
+    this.load.image("smalldrum_btn", "assets/img/button/smalldrum_btn.png");
   }
   create() {
     // 상단 MGMG 텍스트
@@ -61,31 +67,57 @@ export default class S_Select extends Phaser.Scene {
     const heartnote = this.add.image(1000, 500, "heartnote");
     heartnote.setScale(0.5).alpha = 1.0;
 
-    // 리듬악기노래 선택버튼
-    const select_rhythm = this.add.image(
+    // 악기 선택버튼
+    const tambourine_btn = this.add.image(
       this.cameras.main.centerX,
-      420,
-      "select_rhythm"
+      380,
+      "tambourine_btn"
     );
-    select_rhythm.setInteractive({ cursor: "pointer" }).on(
+    tambourine_btn.setInteractive({ cursor: "pointer" }).on(
       "pointerdown",
       () => {
-        //this.scene.start('loading');
-        this.scene.start("select_instrument");
+        this.scene.start("loading", { instrument: "tambourine" });
       },
       this
     );
 
-    // 다른 노래 선택버튼(아직 구현X)
-    const select_other1 = this.add.image(
+    const castanets_btn = this.add.image(
       this.cameras.main.centerX,
-      550,
-      "select_other"
+      510,
+      "castanets_btn"
     );
-    const select_other2 = this.add.image(
+    castanets_btn.setInteractive({ cursor: "pointer" }).on(
+      "pointerdown",
+      () => {
+        this.scene.start("loading", { instrument: "castanets" });
+      },
+      this
+    );
+
+    const triangle_btn = this.add.image(
       this.cameras.main.centerX,
-      680,
-      "select_other"
+      640,
+      "triangle_btn"
+    );
+    triangle_btn.setInteractive({ cursor: "pointer" }).on(
+      "pointerdown",
+      () => {
+        this.scene.start("loading", { instrument: "triangle" });
+      },
+      this
+    );
+
+    const smalldrum_btn = this.add.image(
+      this.cameras.main.centerX,
+      770,
+      "smalldrum_btn"
+    );
+    smalldrum_btn.setInteractive({ cursor: "pointer" }).on(
+      "pointerdown",
+      () => {
+        this.scene.start("loading", { instrument: "smalldrum" });
+      },
+      this
     );
 
     // 하단 설명 텍스트
