@@ -2,7 +2,6 @@ import S_InGame from "./ingame.js";
 import S_Result from "./result.js";
 import S_Select from "./select.js";
 import S_Loading from "./loading.js";
-import S_Town from "./town.js";
 import S_Map from "./map.js";
 import S_Shop from "./shop.js";
 import S_UserData from "./userdata.js";
@@ -48,13 +47,11 @@ export default class S_Title extends Phaser.Scene {
       .on(
         "pointerdown",
         (event) => {
-          this.scene.start("select");
+          //this.scene.start("select");
           //this.scene.start('town');
 
-          //this.scene.get("userdata").init("익명");
-          //this.scene.start("map");
-
-          //this.scene.start("town");
+          this.scene.get("userdata").init("익명");
+          this.scene.start("map");
         },
         this
       )
@@ -108,7 +105,6 @@ const config = {
     S_SelectInstrument,
     S_Loading,
     S_Map,
-    S_Town,
     S_Shop,
     S_UserData,
   ],

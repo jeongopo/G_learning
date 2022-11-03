@@ -46,7 +46,7 @@ export default class S_Select extends Phaser.Scene {
       .on(
         "pointerdown",
         () => {
-          this.scene.start("title");
+          this.scene.start("map");
         },
         this
       )

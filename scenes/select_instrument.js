@@ -52,7 +52,7 @@ export default class S_SelectInstrument extends Phaser.Scene {
       .on(
         "pointerdown",
         () => {
-          this.scene.start("title");
+          this.scene.start("select");
         },
         this
       )

@@ -18,36 +18,38 @@ export default class S_Map extends Phaser.Scene {
     this.musicObject;
     this.storeObject;
 
-      /**
+    /**
      * @brief 특정 커스텀 번호로 캐릭터의 커스텀을 변경하는 함수
      *
      * @param {int} num 변경될 커스텀 번호
      */
-       this.changeCharacter = (num) => {
-        this.player.stop();
-        this.characterNum = num + 1;
-        this.player.setTexture("player" + this.characterNum);
-        this.scene.get('userdata').UserCharacterImg.setTexture("Pre_player" + this.characterNum);
-        this.scene.get("userdata").userCharacter = this.characterNum;
-      };  
+    this.changeCharacter = (num) => {
+      this.player.stop();
+      this.characterNum = num + 1;
+      this.player.setTexture("player" + this.characterNum);
+      this.scene
+        .get("userdata")
+        .UserCharacterImg.setTexture("Pre_player" + this.characterNum);
+      this.scene.get("userdata").userCharacter = this.characterNum;
+    };
 
-      this.EntryStore = ()=>{
-        if(!this.InStoreUI){
-          this.InStoreUI = true;
-          if(confirm("상점에 입장하시겠습니까?")){
-            this.scene.launch('shop');       
-          }
+    this.EntryStore = () => {
+      if (!this.InStoreUI) {
+        this.InStoreUI = true;
+        if (confirm("상점에 입장하시겠습니까?")) {
+          this.scene.launch("shop");
         }
       }
-      this.EntryMusic = () => {
-        if(!this.InMusic){
-          this.InMusic = true;
-          if(confirm("음악 연주로 이동하시겠습니까?")){
-            this.scene.start('select');
-          }
+    };
+    this.EntryMusic = () => {
+      if (!this.InMusic) {
+        this.InMusic = true;
+        if (confirm("음악 연주로 이동하시겠습니까?")) {
+          this.scene.start("select");
+          this.scene.sleep("userdata");
         }
       }
-
+    };
   }
   preload() {
     /* map */
@@ -96,14 +98,14 @@ export default class S_Map extends Phaser.Scene {
       "Music Point",
       (obj) => obj.name === "Music Point"
     );
-    if(this.musicPoint == null)  console.error("can't find \'MusicPoint\'");
+    if (this.musicPoint == null) console.error("can't find 'MusicPoint'");
     console.log(this.musicPoint);
 
     const storePoint = map.findObject(
       "Store Point",
       (obj) => obj.name === "Store Point"
     );
-    if(storePoint == null)  console.error("can't find \'StorePoint\'");
+    if (storePoint == null) console.error("can't find 'StorePoint'");
 
     /* 캐릭터 */
     this.player = this.physics.add.sprite(
@@ -129,7 +131,9 @@ export default class S_Map extends Phaser.Scene {
     this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.up);
     this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.left);
     this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.down);
-    this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.right);
+    this.keyD = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.right
+    );
 
     //캐릭터 애니메이션 설정
     this.anims.create({
@@ -178,7 +182,7 @@ export default class S_Map extends Phaser.Scene {
       frameRate: 30,
       repeat: -1,
     });
-    
+
     const camera = this.cameras.main;
     camera.startFollow(this.player);
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -199,7 +203,7 @@ export default class S_Map extends Phaser.Scene {
       });
     });
 
-    this.scene.get('userdata').showUserUI();
+    this.scene.get("userdata").showUserUI();
   }
   update(time, delta) {
     const speed = 300;
@@ -207,11 +211,10 @@ export default class S_Map extends Phaser.Scene {
 
     this.player.body.setVelocity(0);
 
-    
     // Horizontal movement
     if (this.cursors.left.isDown) {
       if (this.keyDownState != "A")
-      this.player.play("Walk_" + this.characterNum);
+        this.player.play("Walk_" + this.characterNum);
       if (this.IsRight) {
         this.player.toggleFlipX();
         this.IsRight = false;
@@ -238,7 +241,7 @@ export default class S_Map extends Phaser.Scene {
         this.player.play("Walk_" + this.characterNum);
       this.keyDownState = "S";
       this.player.body.setVelocityY(speed);
-    }else if (
+    } else if (
       this.keyW.isUp &&
       this.keyA.isUp &&
       this.keyS.isUp &&
@@ -250,10 +253,26 @@ export default class S_Map extends Phaser.Scene {
     // Normalize and scale the velocity so that player can't move faster along a diagonal
     this.player.body.velocity.normalize().scale(speed);
 
-    if(!this.physics.overlap(this.player, this.storeObject, this.EntryStore,null,this)){
+    if (
+      !this.physics.overlap(
+        this.player,
+        this.storeObject,
+        this.EntryStore,
+        null,
+        this
+      )
+    ) {
       this.InStoreUI = false;
     }
-    if(!this.physics.overlap(this.player,this.musicObject, this.EntryMusic, null,this)){
+    if (
+      !this.physics.overlap(
+        this.player,
+        this.musicObject,
+        this.EntryMusic,
+        null,
+        this
+      )
+    ) {
       this.InMusic = false;
     }
   }
