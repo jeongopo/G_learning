@@ -137,11 +137,14 @@ export default class S_Map extends Phaser.Scene {
       Phaser.Input.Keyboard.KeyCodes.right
     );
 
+
+    const FRAMERATE = 10;
+
     //캐릭터 애니메이션 설정
     this.anims.create({
       key: "Idle_1",
       frames: this.anims.generateFrameNumbers("player1", { frames: [0] }),
-      frameRate: 20,
+      frameRate: FRAMERATE,
     });
 
     this.anims.create({
@@ -149,7 +152,7 @@ export default class S_Map extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers("player1", {
         frames: [0, 1, 2, 3, 4, 5],
       }),
-      frameRate: 30,
+      frameRate: FRAMERATE,
       repeat: -1,
     });
 
@@ -157,7 +160,7 @@ export default class S_Map extends Phaser.Scene {
     this.anims.create({
       key: "Idle_2",
       frames: this.anims.generateFrameNumbers("player2", { frames: [0] }),
-      frameRate: 20,
+      frameRate: FRAMERATE,
     });
 
     this.anims.create({
@@ -165,7 +168,7 @@ export default class S_Map extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers("player2", {
         frames: [0, 1, 2, 3, 4, 5],
       }),
-      frameRate: 30,
+      frameRate: FRAMERATE,
       repeat: -1,
     });
 
@@ -173,7 +176,7 @@ export default class S_Map extends Phaser.Scene {
     this.anims.create({
       key: "Idle_3",
       frames: this.anims.generateFrameNumbers("player3", { frames: [0] }),
-      frameRate: 20,
+      frameRate: FRAMERATE,
     });
 
     this.anims.create({
@@ -181,7 +184,7 @@ export default class S_Map extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers("player3", {
         frames: [0, 1, 2, 3, 4, 5],
       }),
-      frameRate: 30,
+      frameRate: FRAMERATE,
       repeat: -1,
     });
 
