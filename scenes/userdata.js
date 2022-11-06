@@ -65,7 +65,7 @@ export default class S_UserData extends Phaser.Scene {
     };
 
     this.showUserUI = () => {
-      //if (!this.UserNameTag) {
+      if (this.UserNameTag == null) {
       this.UserNameTag = this.add.image(300, 100, "TOWN_Name");
       this.characterNum = this.userCharacter;
       this.UserCharacterImg = this.add.image(
@@ -98,8 +98,14 @@ export default class S_UserData extends Phaser.Scene {
           strokeThickness: 10,
         })
         .setOrigin(0.5);
+    }else {
+      this.characterNum = this.userCharacter;
+      this.UserCharacterImg.setTexture("Pre_player" + this.characterNum);
+      this.UserLevel.setText(this.GetUserLevel() + "레벨");
+      this.UserNameText.setText(this.username);
+      this.coinText.setText( "💰 Coin : " + this.gold);
+    }
     };
-    //};
   }
 
   preload() {

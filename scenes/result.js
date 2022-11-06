@@ -22,7 +22,8 @@ export default class S_Result extends Phaser.Scene {
         () => {
           document.getElementById("phaser_canvas").childNodes[2].style.zIndex =
             -1;
-          this.scene.restart("inGame");
+          this.scene.sleep("inGame");
+          this.scene.start("select");
         },
         this
       );

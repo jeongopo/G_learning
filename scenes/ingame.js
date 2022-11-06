@@ -12,12 +12,14 @@ export default class S_InGame extends Phaser.Scene {
     this.textEval;
     this.scoreText;
     this.backMusic;
-    this.keyW, this.keyA, this.keyS, this.keyD;
+    this.keyW, this.keyA, this.keyS, this.keyD, this.debugD;
     this.IsMusicOn = false;
     this.startTime;
     this.musicName;
     this.posText;
     this.matchSound;
+    this.instrument;
+    this.instrumentObject;
 
     this.canvasWidth = 1200;
     this.canvasHeight = 853;
@@ -43,6 +45,16 @@ export default class S_InGame extends Phaser.Scene {
     //#endregion
 
     //#region 함수정의
+
+    /**
+     * @brief 변수값들 초기화하는 함수
+     */
+    this.initdata = () =>{
+      this.IsGameEnd = false;
+      this.score = 0;
+      this.IsGameEnd = false;
+      this.scoreArr = [0, 0, 0, 0];
+    }
     /**
      * @brief 게임 시작 시의 변수 값, 오브젝트들 스폰하는 함수
      */
@@ -235,20 +247,37 @@ export default class S_InGame extends Phaser.Scene {
     //#region 디자인
 
     //오브젝트 배치
+
+    
+    if(this.instrumentObject == null){
+      this.instrumentObject = this.add.image(1080, 700, this.instrument);
+      if (this.instrument === "tambourine") {
+        this.instrumentObject.setScale(0.4);
+        this.instrumentObject.angle = 45;
+      } else if (this.instrument === "castanets") {
+        this.instrumentObject.setScale(0.8);
+      } else if (this.instrument === "triangle") {
+        this.instrumentObject.setScale(0.8);
+      } else if (this.instrument === "smalldrum") {
+        this.instrumentObject.setScale(0.9);
+      }
+    }else {
+      this.instrumentObject.setTexture(this.instrument);
+      if (this.instrument === "tambourine") {
+        this.instrumentObject.setScale(0.4);
+        this.instrumentObject.angle = 45;
+      } else if (this.instrument === "castanets") {
+        this.instrumentObject.setScale(0.8);
+      } else if (this.instrument === "triangle") {
+        this.instrumentObject.setScale(0.8);
+      } else if (this.instrument === "smalldrum") {
+        this.instrumentObject.setScale(0.9);
+      }
+    }
+    
     const upperbar = this.add.image(720, 70, "upperbar").setScale(0.5);
     const noteline = this.add.image(720, 280, "noteline").setScale(0.5);
     const c_match = this.add.image(200, 280, "C_match").setScale(0.5);
-    const instrument = this.add.image(1080, 700, this.instrument);
-    if (this.instrument === "tambourine") {
-      instrument.setScale(0.4);
-      instrument.angle = 45;
-    } else if (this.instrument === "castanets") {
-      instrument.setScale(0.8);
-    } else if (this.instrument === "triangle") {
-      instrument.setScale(0.8);
-    } else if (this.instrument === "smalldrum") {
-      instrument.setScale(0.9);
-    }
 
     const back_arrow = this.add
       .image(100, 70, "back_arrow")
@@ -271,16 +300,8 @@ export default class S_InGame extends Phaser.Scene {
         this
       );
 
-    // 카메라 위치관련 ...
-    const camera = document.querySelector(".camera");
-    camera.style.display = "block";
-    const input_video = document.querySelector(".input_video");
-    input_video.style.display = "none";
-    const output_canvas = document.querySelector(".output_canvas");
-    output_canvas.style =
-      "position: absolute; top: 65%; left: 33%; width:30%; transform: translate(-50%,-50%); border-radius: 15px";
-
     //텍스트 배치
+    if(this.textEval == null){
     this.textEval = this.add
       .text(this.cameras.main.centerX, this.canvasHeight / 2 + 30, "", {
         fontFamily: "Noto Sans KR",
@@ -290,6 +311,7 @@ export default class S_InGame extends Phaser.Scene {
         strokeThickness: 10,
       })
       .setOrigin(0.5);
+    }else this.textEval.setText("");
 
     this.musicName = this.add
       .text(this.cameras.main.centerX, 70, "리듬악기 노래", {
@@ -299,15 +321,19 @@ export default class S_InGame extends Phaser.Scene {
         align: "center",
       })
       .setOrigin(0.5);
-    this.scoreText = this.add
-      .text(this.canvasWidth + 80, 73, "0 POINTS", {
-        fontFamily: "Noto Sans KR",
-        fill: "#FFF",
-        fontSize: "35px",
-        align: "left",
-      })
-      .setOrigin(0.5);
 
+    if(this.scoreText == null){
+      this.scoreText = this.add
+        .text(1280, 73, "0 POINTS", {
+          fontFamily: "Noto Sans KR",
+          fill: "#FFF",
+          fontSize: "35px",
+          align: "left",
+        })
+        .setOrigin(0.5);
+    }else this.scoreText.setText("0 POINTS");
+
+    if(this.posText == null){
     this.posText = this.add
       .text(this.cameras.main.centerX, this.cameras.main.centerY, " ", {
         fontFamily: "Noto Sans KR",
@@ -317,9 +343,19 @@ export default class S_InGame extends Phaser.Scene {
         strokeThickness: 10,
       })
       .setOrigin(0.5);
+    }else this.posText.setText("");
+
+    this.initdata();
 
     //#endregion
-
+    // 카메라 위치관련 ...
+    const camera = document.querySelector(".camera");
+    camera.style.display = "block";
+    const input_video = document.querySelector(".input_video");
+    input_video.style.display = "none";
+    const output_canvas = document.querySelector(".output_canvas");
+    output_canvas.style =
+      "position: absolute; top: 65%; left: 33%; width:30%; transform: translate(-50%,-50%); border-radius: 15px";
     this.matchSound = this.sound.add("matchSound", {
       loop: false,
     });
@@ -327,9 +363,20 @@ export default class S_InGame extends Phaser.Scene {
       loop: false,
     });
     this.startGame();
+
+    this.debugD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
   }
 
   update(time, delta) {
+    if(this.debugD.isDown && this.IsGameEnd != true){
+      this.scoreArr=[7,7,0,0];
+      this.IsGameEnd = true;
+      this.scene.launch("result");
+      this.IsMusicOn = false;
+      document.getElementById("camera_canvas").style.display = "none";
+      document.getElementById("phaser_canvas").childNodes[2].style.zIndex = 0;
+      this.backMusic.stop();
+    }
     if (this.IsMusicOn) {
       //게임 시작 되면 update 시작
       switch (checkPos) {
