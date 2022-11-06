@@ -72,7 +72,7 @@ export default class S_Map extends Phaser.Scene {
       { frameWidth: 96, frameHeight: 96 }
     );
 
-    this.load.image("tem", "../img/RESULT_back.png");
+    this.load.image("tem", "../assets/img/back_arrow.png");
   }
   create() {
     this.IsRight = true;
