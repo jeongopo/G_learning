@@ -124,6 +124,8 @@ export default class S_Map extends Phaser.Scene {
       storePoint.y,
       "tem"
     );
+    this.musicObject.alpha = 0;
+    this.storeObject.alpha = 0;
 
     this.physics.add.collider(this.player, worldLayer);
 
