@@ -1,47 +1,38 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Rhythm game</title>
     <script src="./lib/camera_utils.js" crossorigin="anonymous"></script>
     <script src="./lib/control_utils.js" crossorigin="anonymous"></script>
     <script src="./lib/drawing_utils.js" crossorigin="anonymous"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"
-      crossorigin="anonymous"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
 
     <script type="module" defer src="./lib/script.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.54.0/dist/phaser.js"></script>
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="./assets/img/favicon-32x32.png"
-    />
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon-32x32.png">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 
-    <script type="module" src="./scenes/ingame.js"></script>
-    <script type="module" src="./scenes/title.js"></script>
-  </head>
+    <script type="module" src="./scenes/ingame.js" ></script>
+    <script type="module" src="./scenes/title.js" ></script>
+</head>
 
-  <body>
-    <div id="camera_canvas" class="camera">
-      <!-- <div class="handPos">
+<body>
+    <div id = "camera_canvas" class="camera">
+        <!-- <div class="handPos">
             <p id="handPos">HAND Position</p>
         </div> -->
-      <div>
-        <video class="input_video" width="640px" height="360px"></video>
-        <canvas class="output_canvas" width="300px" height="180px"></canvas>
-      </div>
+        <div> 
+            <video class="input_video" width="640px" height="360px"></video>
+            <canvas class="output_canvas" width="300px" height="180px"></canvas>
+        </div>
     </div>
-    <div id="phaser_canvas"></div>
-  </body>
+    <div id="phaser_canvas">
+    </div>
+</body>
 </html>
