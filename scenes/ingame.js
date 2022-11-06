@@ -54,6 +54,7 @@ export default class S_InGame extends Phaser.Scene {
       this.score = 0;
       this.IsGameEnd = false;
       this.scoreArr = [0, 0, 0, 0];
+      this.IsMusicOn = false;
     }
     /**
      * @brief 게임 시작 시의 변수 값, 오브젝트들 스폰하는 함수
@@ -322,16 +323,13 @@ export default class S_InGame extends Phaser.Scene {
       })
       .setOrigin(0.5);
 
-    if(this.scoreText == null){
-      this.scoreText = this.add
-        .text(1280, 73, "0 POINTS", {
+    this.scoreText = this.add.text(1280, 73, "0 POINTS", {
           fontFamily: "Noto Sans KR",
           fill: "#FFF",
           fontSize: "35px",
           align: "left",
         })
         .setOrigin(0.5);
-    }else this.scoreText.setText("0 POINTS");
 
     if(this.posText == null){
     this.posText = this.add
