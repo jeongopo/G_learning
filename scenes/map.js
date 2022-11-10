@@ -45,6 +45,8 @@ export default class S_Map extends Phaser.Scene {
       if (!this.InMusic) {
         this.InMusic = true;
         if (confirm("음악 연주로 이동하시겠습니까?")) {
+          this.scene.get('userdata').UserPos = [this.player.x, this.player.y];
+          console.log("현재 플레이어 위치 업데이트 ", this.scene.get('userdata').UserPos);
           this.scene.start("select");
           this.scene.sleep("userdata");
         }
@@ -89,10 +91,12 @@ export default class S_Map extends Phaser.Scene {
     worldLayer.setCollisionByProperty({ collides: true });
     aboveLayer.setDepth(10);
 
+    /*
     const spawnPoint = map.findObject(
       "Spawn Objects",
       (obj) => obj.name === "Spawn Point"
     );
+    */
 
     this.musicPoint = map.findObject(
       "Music Point",
@@ -107,10 +111,12 @@ export default class S_Map extends Phaser.Scene {
     );
     if (storePoint == null) console.error("can't find 'StorePoint'");
 
-    /* 캐릭터 */
+    /* 캐릭터 스폰 */
+    const spawnPoint = this.scene.get('userdata').UserPos;
+    console.log(spawnPoint);
     this.player = this.physics.add.sprite(
-      spawnPoint.x,
-      spawnPoint.y,
+      spawnPoint[0],
+      spawnPoint[1],
       "player" + this.characterNum
     );
 
@@ -129,7 +135,7 @@ export default class S_Map extends Phaser.Scene {
 
     this.physics.add.collider(this.player, worldLayer);
 
-    // //키 입력 설정
+    //키 입력 설정
     this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.up);
     this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.left);
     this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.down);

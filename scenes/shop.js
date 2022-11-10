@@ -25,7 +25,7 @@ export default class S_Shop extends Phaser.Scene {
                             this.scene.get('userdata').BuyCustom(num,this.Prices[num]);
                             this.customBtn[this.scene.get('map').characterNum - 1].setText("장착");
                             this.customBtn[num].setText("장착 중");
-                            this.scene.get('userdata').coinText.setText("💰 Coin : "+this.scene.get('userdata').gold);
+                            this.scene.get('userdata').coinText.setText(this.scene.get('userdata').gold);
                             if(confirm("구매 완료! 바로 변경하시겠습니까?") == true){
                                 this.scene.get('map').changeCharacter(num);
                             }

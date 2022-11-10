@@ -17,6 +17,7 @@ export default class S_UserData extends Phaser.Scene {
     this.leveldata = [0, 10, 20, 30, 40, 1000];
     this.UserLevel;
     this.UserCharacterImg;
+    this.UserPos = [0,0 ]; //유저의 마지막 위치 값
 
     /**
      * @brief 유저 데이터 초기에 초기화해주는 함수
@@ -29,6 +30,7 @@ export default class S_UserData extends Phaser.Scene {
       this.gold = 300;
       this.Experiences = 0;
       this.userCharacter = 1;
+      this.UserPos = [1388.54,291.765];
     };
 
     this.GetUserLevel = () => {
@@ -100,7 +102,7 @@ export default class S_UserData extends Phaser.Scene {
         this.UserCharacterImg.setTexture("Pre_player" + this.characterNum);
         this.UserLevel.setText(this.GetUserLevel() + "레벨");
         this.UserNameText.setText(this.username);
-        this.coinText.setText("💰 Coin : " + this.gold);
+        this.coinText.setText(this.gold);
       }
     };
   }
