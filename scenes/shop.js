@@ -8,7 +8,7 @@ export default class S_Shop extends Phaser.Scene {
     this.customBtn = [];
     this.ClostBtn;
     this.Prices = [100, 300, 500];
-
+    
     /**
      * @breif num 번호의 커스텀을 가지고 특정 행동이 가능한지 판단하고, 가능하다면 실행한다
      * @param {int} num 변경할 커스텀 번호
@@ -30,7 +30,7 @@ export default class S_Shop extends Phaser.Scene {
             this.customBtn[num].setText("장착 중");
             this.scene
               .get("userdata")
-              .coinText.setText("💰 Coin : " + this.scene.get("userdata").gold);
+              .coinText.setText(this.scene.get("userdata").gold);
             if (confirm("구매 완료! 바로 변경하시겠습니까?") == true) {
               this.scene.get("map").changeCharacter(num);
             }

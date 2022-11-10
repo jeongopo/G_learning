@@ -92,7 +92,8 @@ const config = {
       },
     },
   },
-  backgroundColor: "#E9FFB1",
+  // backgroundColor: "#E9FFB1",
+  transparent: true,
   parent: "phaser_canvas",
   dom: {
     createContainer: true,
