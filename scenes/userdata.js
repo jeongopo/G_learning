@@ -66,45 +66,42 @@ export default class S_UserData extends Phaser.Scene {
 
     this.showUserUI = () => {
       if (this.UserNameTag == null) {
-      this.UserNameTag = this.add.image(300, 100, "TOWN_Name");
-      this.characterNum = this.userCharacter;
-      this.UserCharacterImg = this.add.image(
-        140,
-        80,
-        "Pre_player" + this.characterNum
-      );
-      this.UserLevel = this.add.text(200, 20, this.GetUserLevel() + "레벨", {
-        fontFamily: "Noto Sans KR",
-        fill: "#000000",
-        fontSize: "32px",
-        fontWeight: "bold",
-        background: "FFF",
-      });
-
-      this.UserNameText = this.add.text(230, 80, this.username, {
-        fontFamily: "Noto Sans KR",
-        fill: "#000000",
-        fontSize: "32px",
-        fontWeight: "bold",
-        background: "FFF",
-      });
-
-      this.coinText = this.add
-        .text(1200, 50, "💰 Coin : " + this.gold, {
+        this.UserNameTag = this.add.image(175, 80, "TOWN_Name");
+        this.characterNum = this.userCharacter;
+        this.UserCharacterImg = this.add
+          .image(80, 80, "Pre_player" + this.characterNum)
+          .setScale(0.8);
+        this.UserLevel = this.add.text(140, 88, this.GetUserLevel() + " 레벨", {
           fontFamily: "Noto Sans KR",
-          fill: "#FFF",
-          fontSize: "40px",
-          stroke: "#7E972E",
-          strokeThickness: 10,
-        })
-        .setOrigin(0.5);
-    }else {
-      this.characterNum = this.userCharacter;
-      this.UserCharacterImg.setTexture("Pre_player" + this.characterNum);
-      this.UserLevel.setText(this.GetUserLevel() + "레벨");
-      this.UserNameText.setText(this.username);
-      this.coinText.setText( "💰 Coin : " + this.gold);
-    }
+          fill: "#000000",
+          fontSize: "20px",
+          fontWeight: "bold",
+          background: "FFF",
+        });
+
+        this.UserNameText = this.add.text(140, 52, this.username, {
+          fontFamily: "Noto Sans KR",
+          fill: "#000000",
+          fontSize: "30px",
+          fontWeight: "bold",
+          background: "FFF",
+        });
+
+        this.coinInfo = this.add.image(115, 175, "COIN_back");
+        this.coinText = this.add
+          .text(135, 176, this.gold, {
+            fontFamily: "Noto Sans KR",
+            fill: "#000",
+            fontSize: "22px",
+          })
+          .setOrigin(0.5);
+      } else {
+        this.characterNum = this.userCharacter;
+        this.UserCharacterImg.setTexture("Pre_player" + this.characterNum);
+        this.UserLevel.setText(this.GetUserLevel() + "레벨");
+        this.UserNameText.setText(this.username);
+        this.coinText.setText("💰 Coin : " + this.gold);
+      }
     };
   }
 
@@ -122,5 +119,6 @@ export default class S_UserData extends Phaser.Scene {
       "../assets/characters/Monsters/Preview/Dude_Monster_Preview.png"
     );
     this.load.image("TOWN_Name", "../assets/img/TOWN_Name.png");
+    this.load.image("COIN_back", "../assets/img/COIN_back.png");
   }
 }
