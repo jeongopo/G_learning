@@ -28,11 +28,11 @@ export default class S_Loading extends Phaser.Scene {
       })
       .setOrigin(0.5);
 
-      /*
+    /*
     // 손 이미지
     const hand = this.add.image(this.cameras.main.centerX, 500, "hand");
     hand.setScale(1.3).alpha = 0.5;
-*/
+    */
     
     const human = this.add.image(this.cameras.main.centerX, 550, "humanshape")
     .setScale(0.8);

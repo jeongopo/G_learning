@@ -8,19 +8,23 @@ export default class S_InGame extends Phaser.Scene {
   constructor() {
     super("inGame");
     //#region 변수정의
-    this.line;
-    this.textEval;
-    this.scoreText;
     this.backMusic;
     this.keyW, this.keyA, this.keyS, this.keyD, this.debugD;
     this.IsMusicOn = false;
     this.startTime;
     this.musicName;
-    this.posText;
+    
     this.matchSound;
     this.instrument;
     this.instrumentObject;
     this.RefInGameMusic; //userdata에서 받아온 현재노래 index값 
+
+    //UI 오브젝트
+    this.scoreText;
+    this.textEval;
+    this.posText;
+    this.line;
+    this.back_arrow;
 
     this.canvasWidth = 1200;
     this.canvasHeight = 853;
@@ -310,26 +314,29 @@ export default class S_InGame extends Phaser.Scene {
     const noteline = this.add.image(720, 280, "noteline").setScale(0.5);
     const c_match = this.add.image(200, 280, "C_match").setScale(0.5);
 
-    const back_arrow = this.add
-      .image(100, 70, "back_arrow")
-      .setInteractive({
-        cursor: "pointer",
-      })
-      .setScale(0.5)
-      .on(
-        "pointerdown",
-        () => {
-          this.IsGameEnd = true;
-          document.getElementById("camera_canvas").style.display = "none";
-          this.backMusic.stop();
-          document.getElementById(
-            "phaser_canvas"
-          ).childNodes[2].style.zIndex = 0;
+    if(this.back_arrow == null){
 
-          this.scene.start("select");
-        },
-        this
-      );
+      this.back_arrow = this.add
+        .image(100, 70, "back_arrow")
+        .setInteractive({
+          cursor: "pointer",
+        })
+        .setScale(0.5)
+        .on(
+          "pointerdown",
+          () => {
+            this.IsGameEnd = true;
+            document.getElementById("camera_canvas").style.display = "none";
+            this.backMusic.stop();
+            document.getElementById(
+              "phaser_canvas"
+            ).childNodes[2].style.zIndex = 0;
+
+            this.scene.start("select");
+          },
+          this
+        );
+    }
 
     //텍스트 배치
     if(this.textEval == null){
