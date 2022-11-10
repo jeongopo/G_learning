@@ -68,33 +68,33 @@ export default class S_UserData extends Phaser.Scene {
 
     this.showUserUI = () => {
       if (this.UserNameTag == null) {
-        this.UserNameTag = this.add.image(175, 80, "TOWN_Name");
+        this.UserNameTag = this.add.image(190, 90, "TOWN_Name");
         this.characterNum = this.userCharacter;
         this.UserCharacterImg = this.add
-          .image(80, 80, "Pre_player" + this.characterNum)
+          .image(95, 88, "Pre_player" + this.characterNum)
           .setScale(0.8);
-        this.UserLevel = this.add.text(140, 88, this.GetUserLevel() + " 레벨", {
+        this.UserLevel = this.add.text(150, 98, this.GetUserLevel() + " 레벨", {
           fontFamily: "Noto Sans KR",
           fill: "#000000",
           fontSize: "20px",
           fontWeight: "bold",
-          background: "FFF",
+          fill: "#FFF",
         });
 
-        this.UserNameText = this.add.text(140, 52, this.username, {
+        this.UserNameText = this.add.text(148, 60, this.username, {
           fontFamily: "Noto Sans KR",
           fill: "#000000",
           fontSize: "30px",
           fontWeight: "bold",
-          background: "FFF",
+          fill: "#FFF",
         });
 
-        this.coinInfo = this.add.image(115, 175, "COIN_back");
+        this.coinInfo = this.add.image(1270, 80, "COIN_back").setScale(1.3);
         this.coinText = this.add
-          .text(135, 176, this.gold, {
+          .text(1290, 81, this.gold, {
             fontFamily: "Noto Sans KR",
-            fill: "#000",
-            fontSize: "22px",
+            fill: "#FFF",
+            fontSize: "32px",
           })
           .setOrigin(0.5);
       } else {
