@@ -8,7 +8,6 @@ export default class S_Shop extends Phaser.Scene {
     this.customBtn = [];
     this.ClostBtn;
     this.Prices = [100, 300, 500];
-    
     /**
      * @breif num 번호의 커스텀을 가지고 특정 행동이 가능한지 판단하고, 가능하다면 실행한다
      * @param {int} num 변경할 커스텀 번호
