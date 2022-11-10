@@ -46,7 +46,6 @@ export default class S_Map extends Phaser.Scene {
         this.InMusic = true;
         if (confirm("음악 연주로 이동하시겠습니까?")) {
           this.scene.get('userdata').UserPos = [this.player.x, this.player.y];
-          console.log("현재 플레이어 위치 업데이트 ", this.scene.get('userdata').UserPos);
           this.scene.start("select");
           this.scene.sleep("userdata");
         }
@@ -103,7 +102,6 @@ export default class S_Map extends Phaser.Scene {
       (obj) => obj.name === "Music Point"
     );
     if (this.musicPoint == null) console.error("can't find 'MusicPoint'");
-    console.log(this.musicPoint);
 
     const storePoint = map.findObject(
       "Store Point",
@@ -113,7 +111,6 @@ export default class S_Map extends Phaser.Scene {
 
     /* 캐릭터 스폰 */
     const spawnPoint = this.scene.get('userdata').UserPos;
-    console.log(spawnPoint);
     this.player = this.physics.add.sprite(
       spawnPoint[0],
       spawnPoint[1],

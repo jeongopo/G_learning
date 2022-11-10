@@ -18,6 +18,7 @@ export default class S_UserData extends Phaser.Scene {
     this.UserLevel;
     this.UserCharacterImg;
     this.UserPos = [0,0 ]; //유저의 마지막 위치 값
+    this.InGameMusic = 0; // int 현재 선택한 노래 index (1,2,3)
 
     /**
      * @brief 유저 데이터 초기에 초기화해주는 함수

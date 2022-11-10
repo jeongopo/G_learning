@@ -20,12 +20,14 @@ export default class S_InGame extends Phaser.Scene {
     this.matchSound;
     this.instrument;
     this.instrumentObject;
+    this.RefInGameMusic; //userdata에서 받아온 현재노래 index값 
 
     this.canvasWidth = 1200;
     this.canvasHeight = 853;
 
-    this.timearr = [
-      //[키,노트 타임]. 일단 W로만 만들어놓음
+    this.timearr = []; //노래에 맞는 노트값으로 변경
+    this.notedata1 = [
+      //[키,노트 타임]
       ["W", 12300],
       ["A", 14200],
       ["S", 16100],
@@ -34,14 +36,40 @@ export default class S_InGame extends Phaser.Scene {
       ["S", 21600],
       ["A", 23400],
     ];
+
+    this.notedata2 = [
+      //[키,노트 타임]
+      ["A", 8000],
+      ["A", 9000],
+      ["A", 10000],
+      ["D", 18000],
+      ["W", 19800],
+      ["S", 21600],
+      ["A", 23400],
+    ];
+
+    this.notedata3 = [
+      //[키,노트 타임]
+      ["S", 8000],
+      ["S", 9000],
+      ["S", 10000],
+      ["S", 11000],
+      ["W", 19800],
+      ["S", 21600],
+      ["A", 23400],
+    ];
+
     this.scorenumarr = [500, 300, 100]; //판정별 점수
     this.evaltextcontent = ["Perfect!", "Good!", "Bad!"]; //판정별 대사
     this.circleObjectArr = [];
     this.scoreArr = [0, 0, 0, 0];
 
+    this.songName = [, "리듬악기 노래", "펄펄 눈이 옵니다", "작은 별"];
     this.speed = 0.5;
     this.score = 0;
     this.IsGameEnd = false;
+
+
     //#endregion
 
     //#region 함수정의
@@ -245,6 +273,7 @@ export default class S_InGame extends Phaser.Scene {
     console.log(this.instrument);
     document.getElementById("camera_canvas").style.display = "none";
     document.getElementById("phaser_canvas").childNodes[2].style.zIndex = -1;
+    this.RefInGameMusic = this.scene.get('userdata').InGameMusic;
     this.IsGameEnd = false;
     //#region 디자인
 
@@ -315,14 +344,7 @@ export default class S_InGame extends Phaser.Scene {
       .setOrigin(0.5);
     }else this.textEval.setText("");
 
-    this.musicName = this.add
-      .text(this.cameras.main.centerX, 70, "리듬악기 노래", {
-        fontFamily: "Noto Sans KR",
-        fill: "#FFF",
-        fontSize: "50px",
-        align: "center",
-      })
-      .setOrigin(0.5);
+
 
     if(this.scoreText == null){
       this.scoreText = this.add
@@ -362,11 +384,37 @@ export default class S_InGame extends Phaser.Scene {
       loop: false,
     });
 
-    const songName = "BGM1";
+
+    //#region 노래별 세팅
+    
+
+    if(this.musicName == null){
+      this.musicName = this.add
+        .text(this.cameras.main.centerX, 70, "리듬악기 노래", {
+          fontFamily: "Noto Sans KR",
+          fill: "#FFF",
+          fontSize: "50px",
+          align: "center",
+        })
+        .setOrigin(0.5);
+    }
+    this.musicName.setText(this.songName[this.RefInGameMusic]);
+
+    const songName = "BGM"+this.RefInGameMusic;
 
     this.backMusic = this.sound.add(songName, {
       loop: false,
     });
+
+    switch(this.RefInGameMusic){
+      case 1 : this.timearr = this.notedata1;
+              break;
+      case 2 : this.timearr = this.notedata2;
+              break;
+      case 3 : this.timearr = this.notedata3;
+    }
+
+    //#endregion    
     this.startGame();
 
     this.debugD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);

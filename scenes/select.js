@@ -10,8 +10,10 @@ export default class S_Select extends Phaser.Scene {
     this.load.image("hand", "../assets/img/hand.png");
     this.load.image("heartnote", "../assets/img/heartnote.png");
     this.load.image("select_back_arrow", "../assets/img/select_back_arrow.png");
-    this.load.image("select_rhythm", "assets/img/select_rhythm.png");
-    this.load.image("select_other", "assets/img/select_other.png");
+
+    this.load.image("select_bgm1", "assets/img/select_rhythm.png");
+    this.load.image("select_bgm2", "assets/img/button/bgm2_btn.png");
+    this.load.image("select_bgm3", "assets/img/button/bgm3_btn.png");
   }
   create() {
     // 상단 MGMG 텍스트
@@ -65,27 +67,47 @@ export default class S_Select extends Phaser.Scene {
     const select_rhythm = this.add.image(
       this.cameras.main.centerX,
       420,
-      "select_rhythm"
+      "select_bgm1"
     );
     select_rhythm.setInteractive({ cursor: "pointer" }).on(
       "pointerdown",
       () => {
         //this.scene.start('loading');
+        this.scene.get('userdata').InGameMusic = 1;
         this.scene.start("select_instrument");
       },
       this
     );
 
-    // 다른 노래 선택버튼(아직 구현X)
-    const select_other1 = this.add.image(
+    // 다른 노래 선택버튼
+    const select_rhythm2 = this.add.image(
       this.cameras.main.centerX,
       550,
-      "select_other"
+      "select_bgm2"
     );
-    const select_other2 = this.add.image(
+    select_rhythm2.setInteractive({ cursor: "pointer" }).on(
+      "pointerdown",
+      () => {
+        //this.scene.start('loading');
+        this.scene.get('userdata').InGameMusic = 2;
+        this.scene.start("select_instrument");
+      },
+      this
+    );
+
+    const select_rhythm3 = this.add.image(
       this.cameras.main.centerX,
       680,
-      "select_other"
+      "select_bgm3"
+    );
+    select_rhythm3.setInteractive({ cursor: "pointer" }).on(
+      "pointerdown",
+      () => {
+        //this.scene.start('loading');
+        this.scene.get('userdata').InGameMusic = 3;
+        this.scene.start("select_instrument");
+      },
+      this
     );
 
     // 하단 설명 텍스트
