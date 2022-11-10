@@ -237,7 +237,9 @@ export default class S_InGame extends Phaser.Scene {
     this.load.image("smalldrum", "./assets/img/instrument/smalldrum.png");
 
     this.load.audio("matchSound", "./assets/sounds/tamSound.mp3");
-    this.load.audio("rhythm_music", "./assets/bgm/rhythm_music.mp3");
+    this.load.audio("BGM1", "./assets/bgm/BGM_리듬악기연주.mp3");
+    this.load.audio("BGM2", "./assets/bgm/BGM_눈.mp3");
+    this.load.audio("BGM3", "./assets/bgm/BGM_작은별.mp3");
   }
   create() {
     console.log(this.instrument);
@@ -359,7 +361,10 @@ export default class S_InGame extends Phaser.Scene {
     this.matchSound = this.sound.add("matchSound", {
       loop: false,
     });
-    this.backMusic = this.sound.add("rhythm_music", {
+
+    const songName = "BGM1";
+
+    this.backMusic = this.sound.add(songName, {
       loop: false,
     });
     this.startGame();
