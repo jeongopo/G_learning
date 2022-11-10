@@ -13,11 +13,11 @@ export default class S_InGame extends Phaser.Scene {
     this.IsMusicOn = false;
     this.startTime;
     this.musicName;
-    
+
     this.matchSound;
     this.instrument;
     this.instrumentObject;
-    this.RefInGameMusic; //userdata에서 받아온 현재노래 index값 
+    this.RefInGameMusic; //userdata에서 받아온 현재노래 index값
 
     //UI 오브젝트
     this.scoreText;
@@ -73,7 +73,6 @@ export default class S_InGame extends Phaser.Scene {
     this.score = 0;
     this.IsGameEnd = false;
 
-
     //#endregion
 
     //#region 함수정의
@@ -81,12 +80,12 @@ export default class S_InGame extends Phaser.Scene {
     /**
      * @brief 변수값들 초기화하는 함수
      */
-    this.initdata = () =>{
+    this.initdata = () => {
       this.IsGameEnd = false;
       this.score = 0;
       this.IsGameEnd = false;
       this.scoreArr = [0, 0, 0, 0];
-    }
+    };
     /**
      * @brief 게임 시작 시의 변수 값, 오브젝트들 스폰하는 함수
      */
@@ -277,14 +276,13 @@ export default class S_InGame extends Phaser.Scene {
     console.log(this.instrument);
     document.getElementById("camera_canvas").style.display = "none";
     document.getElementById("phaser_canvas").childNodes[2].style.zIndex = -1;
-    this.RefInGameMusic = this.scene.get('userdata').InGameMusic;
+    this.RefInGameMusic = this.scene.get("userdata").InGameMusic;
     this.IsGameEnd = false;
     //#region 디자인
 
     //오브젝트 배치
 
-    
-    if(this.instrumentObject == null){
+    if (this.instrumentObject == null) {
       this.instrumentObject = this.add.image(1080, 700, this.instrument);
       if (this.instrument === "tambourine") {
         this.instrumentObject.setScale(0.4);
@@ -296,7 +294,7 @@ export default class S_InGame extends Phaser.Scene {
       } else if (this.instrument === "smalldrum") {
         this.instrumentObject.setScale(0.9);
       }
-    }else {
+    } else {
       this.instrumentObject.setTexture(this.instrument);
       if (this.instrument === "tambourine") {
         this.instrumentObject.setScale(0.4);
@@ -309,13 +307,12 @@ export default class S_InGame extends Phaser.Scene {
         this.instrumentObject.setScale(0.9);
       }
     }
-    
+
     const upperbar = this.add.image(720, 70, "upperbar").setScale(0.5);
     const noteline = this.add.image(720, 280, "noteline").setScale(0.5);
     const c_match = this.add.image(200, 280, "C_match").setScale(0.5);
 
-    if(this.back_arrow == null){
-
+    if (this.back_arrow == null) {
       this.back_arrow = this.add
         .image(100, 70, "back_arrow")
         .setInteractive({
@@ -331,7 +328,7 @@ export default class S_InGame extends Phaser.Scene {
             document.getElementById(
               "phaser_canvas"
             ).childNodes[2].style.zIndex = 0;
-
+            //this.scene.sleep("ingame");
             this.scene.start("select");
           },
           this
@@ -339,21 +336,19 @@ export default class S_InGame extends Phaser.Scene {
     }
 
     //텍스트 배치
-    if(this.textEval == null){
-    this.textEval = this.add
-      .text(this.cameras.main.centerX, this.canvasHeight / 2 + 30, "", {
-        fontFamily: "Noto Sans KR",
-        fill: "#FBFF4F",
-        fontSize: "30px",
-        stroke: "#000",
-        strokeThickness: 10,
-      })
-      .setOrigin(0.5);
-    }else this.textEval.setText("");
+    if (this.textEval == null) {
+      this.textEval = this.add
+        .text(this.cameras.main.centerX, this.canvasHeight / 2 + 30, "", {
+          fontFamily: "Noto Sans KR",
+          fill: "#FBFF4F",
+          fontSize: "30px",
+          stroke: "#000",
+          strokeThickness: 10,
+        })
+        .setOrigin(0.5);
+    } else this.textEval.setText("");
 
-
-
-    if(this.scoreText == null){
+    if (this.scoreText == null) {
       this.scoreText = this.add
         .text(1280, 73, "0 POINTS", {
           fontFamily: "Noto Sans KR",
@@ -362,19 +357,19 @@ export default class S_InGame extends Phaser.Scene {
           align: "left",
         })
         .setOrigin(0.5);
-    }else this.scoreText.setText("0 POINTS");
+    } else this.scoreText.setText("0 POINTS");
 
-    if(this.posText == null){
-    this.posText = this.add
-      .text(this.cameras.main.centerX, this.cameras.main.centerY, " ", {
-        fontFamily: "Noto Sans KR",
-        fill: "#FBFF4F",
-        fontSize: "50px",
-        stroke: "#000",
-        strokeThickness: 10,
-      })
-      .setOrigin(0.5);
-    }else this.posText.setText("");
+    if (this.posText == null) {
+      this.posText = this.add
+        .text(this.cameras.main.centerX, this.cameras.main.centerY, " ", {
+          fontFamily: "Noto Sans KR",
+          fill: "#FBFF4F",
+          fontSize: "50px",
+          stroke: "#000",
+          strokeThickness: 10,
+        })
+        .setOrigin(0.5);
+    } else this.posText.setText("");
 
     this.initdata();
 
@@ -391,11 +386,9 @@ export default class S_InGame extends Phaser.Scene {
       loop: false,
     });
 
-
     //#region 노래별 세팅
-    
 
-    if(this.musicName == null){
+    if (this.musicName == null) {
       this.musicName = this.add
         .text(this.cameras.main.centerX, 70, "리듬악기 노래", {
           fontFamily: "Noto Sans KR",
@@ -407,29 +400,32 @@ export default class S_InGame extends Phaser.Scene {
     }
     this.musicName.setText(this.songName[this.RefInGameMusic]);
 
-    const songName = "BGM"+this.RefInGameMusic;
+    const songName = "BGM" + this.RefInGameMusic;
 
     this.backMusic = this.sound.add(songName, {
       loop: false,
     });
 
-    switch(this.RefInGameMusic){
-      case 1 : this.timearr = this.notedata1;
-              break;
-      case 2 : this.timearr = this.notedata2;
-              break;
-      case 3 : this.timearr = this.notedata3;
+    switch (this.RefInGameMusic) {
+      case 1:
+        this.timearr = this.notedata1;
+        break;
+      case 2:
+        this.timearr = this.notedata2;
+        break;
+      case 3:
+        this.timearr = this.notedata3;
     }
 
-    //#endregion    
+    //#endregion
     this.startGame();
 
     this.debugD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
   }
 
   update(time, delta) {
-    if(this.debugD.isDown && this.IsGameEnd != true){
-      this.scoreArr=[7,7,0,0];
+    if (this.debugD.isDown && this.IsGameEnd != true) {
+      this.scoreArr = [7, 7, 0, 0];
       this.IsGameEnd = true;
       this.scene.launch("result");
       this.IsMusicOn = false;
