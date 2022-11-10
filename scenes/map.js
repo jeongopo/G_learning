@@ -137,7 +137,6 @@ export default class S_Map extends Phaser.Scene {
       Phaser.Input.Keyboard.KeyCodes.right
     );
 
-
     const FRAMERATE = 10;
 
     //캐릭터 애니메이션 설정
