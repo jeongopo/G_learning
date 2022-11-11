@@ -18,6 +18,7 @@ export default class S_InGame extends Phaser.Scene {
     this.instrument;
     this.instrumentObject;
     this.RefInGameMusic; //userdata에서 받아온 현재노래 index값
+    this.musicEndTime;
 
     //UI 오브젝트
     this.scoreText;
@@ -43,24 +44,57 @@ export default class S_InGame extends Phaser.Scene {
 
     this.notedata2 = [
       //[키,노트 타임]
-      ["A", 8000],
-      ["A", 9000],
-      ["A", 10000],
-      ["D", 18000],
-      ["W", 19800],
-      ["S", 21600],
-      ["A", 23400],
+      ["A", 5500],
+      ["S", 7400],
+      ["D", 8400],
+      ["W", 9400],
+      ["D", 11400],
+      ["A", 12200],
+      ["S", 13200],
+      ["D", 15000],
+      ["A", 16000],
+      ["D", 17000],
+      ["S", 19000],
+      ["W", 20000],
+      ["S", 21000],
+      ["A", 22000],
+      ["W", 22700],
+      ["D", 23700],
+      ["S", 24700],
+      ["A", 25500],
+      ["W", 26400],
     ];
 
     this.notedata3 = [
       //[키,노트 타임]
-      ["S", 8000],
-      ["S", 9000],
-      ["S", 10000],
-      ["S", 11000],
-      ["W", 19800],
-      ["S", 21600],
-      ["A", 23400],
+      ["S", 2200],
+      ["A", 3400],
+      ["D", 4700],
+      ["S", 5700],
+      ["W", 7200],
+      ["D", 8400],
+      ["S", 9400],
+      ["D", 10800],
+
+      ["S", 11800],
+      ["W", 13000],
+      ["D", 14200],
+      ["A", 15500],
+
+      ["W", 16500],
+      ["S", 17700],
+      ["A", 18900],
+      ["D", 20000],
+
+      ["S", 21300],
+      ["A", 22500],
+      ["D", 23800],
+      ["S", 24900],
+
+      ["W", 26300],
+      ["D", 27500],
+      ["S", 28600],
+      ["D", 29800],
     ];
 
     this.scorenumarr = [500, 300, 100]; //판정별 점수
@@ -108,6 +142,7 @@ export default class S_InGame extends Phaser.Scene {
             break;
           case "S":
             tem = this.add.image(1800, 280, "C_upRight").setScale(0.5);
+            
             break;
           case "D":
             tem = this.add.image(1800, 280, "C_downRight").setScale(0.5);
@@ -409,13 +444,18 @@ export default class S_InGame extends Phaser.Scene {
     switch (this.RefInGameMusic) {
       case 1:
         this.timearr = this.notedata1;
+        this.musicEndTime = 30000;
         break;
       case 2:
         this.timearr = this.notedata2;
+        this.musicEndTime = 31800;
         break;
       case 3:
         this.timearr = this.notedata3;
+        this.musicEndTime = 34000;
     }
+
+    
 
     //#endregion
     this.startGame();
@@ -471,7 +511,7 @@ export default class S_InGame extends Phaser.Scene {
       }
       this.scoreText.setText(this.score + " POINTS");
 
-      if (this.inGameGetTime() > 30000 && !this.IsGameEnd) {
+      if (this.inGameGetTime() > this.musicEndTime && !this.IsGameEnd) {
         console.log("노래 종료");
         this.IsGameEnd = true;
         this.scene.launch("result");
