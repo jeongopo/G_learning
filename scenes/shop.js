@@ -21,6 +21,7 @@ export default class S_Shop extends Phaser.Scene {
       } else {
         //커스텀 구매
         if (confirm("커스텀 " + num + "번을 구매하시겠습니까?") == true) {
+          this.scene.get('soundmanager').playSE("BUY");
           if (this.scene.get("userdata").gold >= this.Prices[num]) {
             this.scene.get("userdata").BuyCustom(num, this.Prices[num]);
             this.customBtn[this.scene.get("map").characterNum - 1].setText(
@@ -30,10 +31,14 @@ export default class S_Shop extends Phaser.Scene {
             this.scene
               .get("userdata")
               .coinText.setText(this.scene.get("userdata").gold);
+            
             if (confirm("구매 완료! 바로 변경하시겠습니까?") == true) {
               this.scene.get("map").changeCharacter(num);
             }
-          } else alert("소지중인 골드가 부족합니다!");
+          } else{
+            this.scene.get('soundmanager').playSE("BACK");
+            alert("소지중인 골드가 부족합니다!");
+          } 
         }
       }
     };
@@ -164,6 +169,7 @@ export default class S_Shop extends Phaser.Scene {
         "pointerdown",
         (event) => {
           this.scene.sleep("shop");
+          this.scene.get('soundmanager').playSE("BACK");
         },
         this
       )

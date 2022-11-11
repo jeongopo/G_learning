@@ -13,6 +13,7 @@ export default class S_Result extends Phaser.Scene {
   }
 
   create() {
+    this.scene.get('soundmanager').playSE("FINISHGAME");
     this.add.image(720, 512, "RESULT_background");
     this.add
       .image(this.cameras.main.centerX - 200, 700, "retryBtn")
@@ -20,6 +21,7 @@ export default class S_Result extends Phaser.Scene {
       .on(
         "pointerdown",
         () => {
+          this.scene.get('soundmanager').playSE("CLICK");
           document.getElementById("phaser_canvas").childNodes[2].style.zIndex =
             -1;
           this.scene.sleep("inGame");
@@ -34,6 +36,7 @@ export default class S_Result extends Phaser.Scene {
       .on(
         "pointerdown",
         () => {
+          this.scene.get('soundmanager').playSE("CLICK");
           document.getElementById("camera_canvas").style.display = "none";
           document.getElementById(
             "phaser_canvas"

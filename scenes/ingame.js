@@ -461,6 +461,7 @@ export default class S_InGame extends Phaser.Scene {
     this.startGame();
 
     this.debugD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
   }
 
   update(time, delta) {
@@ -472,6 +473,9 @@ export default class S_InGame extends Phaser.Scene {
       document.getElementById("camera_canvas").style.display = "none";
       document.getElementById("phaser_canvas").childNodes[2].style.zIndex = 0;
       this.backMusic.stop();
+    }
+    if(this.keyA.isDown){
+      console.log(this.inGameGetTime());
     }
     if (this.IsMusicOn) {
       //게임 시작 되면 update 시작

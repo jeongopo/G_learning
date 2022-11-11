@@ -5,6 +5,7 @@ import S_Loading from "./loading.js";
 import S_Map from "./map.js";
 import S_Shop from "./shop.js";
 import S_UserData from "./userdata.js";
+import S_SoundManager from "./soundmanager.js";
 import S_SelectInstrument from "./select_instrument.js";
 export default class S_Title extends Phaser.Scene {
   constructor() {
@@ -49,7 +50,7 @@ export default class S_Title extends Phaser.Scene {
         (event) => {
           //this.scene.start("select");
           //this.scene.start('town');
-
+          this.scene.get("soundmanager").playSE("CLICK");
           this.scene.get("userdata").init("USER");
           this.scene.start("map");
         },
@@ -108,6 +109,7 @@ const config = {
     S_Map,
     S_Shop,
     S_UserData,
+    S_SoundManager,
   ],
 };
 

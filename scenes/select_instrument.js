@@ -76,6 +76,7 @@ export default class S_SelectInstrument extends Phaser.Scene {
     tambourine_btn.setInteractive({ cursor: "pointer" }).on(
       "pointerdown",
       () => {
+        this.scene.get('soundmanager').playSE("CLICK");
         this.scene.start("loading", { instrument: "tambourine" });
       },
       this
@@ -89,6 +90,7 @@ export default class S_SelectInstrument extends Phaser.Scene {
     castanets_btn.setInteractive({ cursor: "pointer" }).on(
       "pointerdown",
       () => {
+        this.scene.get('soundmanager').playSE("CLICK");
         this.scene.start("loading", { instrument: "castanets" });
       },
       this
@@ -102,6 +104,7 @@ export default class S_SelectInstrument extends Phaser.Scene {
     triangle_btn.setInteractive({ cursor: "pointer" }).on(
       "pointerdown",
       () => {
+        this.scene.get('soundmanager').playSE("CLICK");
         this.scene.start("loading", { instrument: "triangle" });
       },
       this
@@ -115,6 +118,7 @@ export default class S_SelectInstrument extends Phaser.Scene {
     smalldrum_btn.setInteractive({ cursor: "pointer" }).on(
       "pointerdown",
       () => {
+        this.scene.get('soundmanager').playSE("CLICK");
         this.scene.start("loading", { instrument: "smalldrum" });
       },
       this

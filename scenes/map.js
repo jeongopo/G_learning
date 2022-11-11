@@ -46,6 +46,7 @@ export default class S_Map extends Phaser.Scene {
         this.InMusic = true;
         if (confirm("음악 연주로 이동하시겠습니까?")) {
           this.scene.get('userdata').UserPos = [this.player.x, this.player.y];
+          this.scene.get("soundmanager").stopBGM();
           this.scene.start("select");
           this.scene.sleep("userdata");
         }
@@ -89,13 +90,6 @@ export default class S_Map extends Phaser.Scene {
 
     worldLayer.setCollisionByProperty({ collides: true });
     aboveLayer.setDepth(10);
-
-    /*
-    const spawnPoint = map.findObject(
-      "Spawn Objects",
-      (obj) => obj.name === "Spawn Point"
-    );
-    */
 
     this.musicPoint = map.findObject(
       "Music Point",
@@ -211,6 +205,7 @@ export default class S_Map extends Phaser.Scene {
     });
 
     this.scene.get("userdata").showUserUI();
+    this.scene.get("soundmanager").playBGM("map");
   }
   update(time, delta) {
     const speed = 300;
