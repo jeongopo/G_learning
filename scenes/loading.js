@@ -1,3 +1,7 @@
+/**
+ * @author 남현정, 지수빈
+ * @file 리듬게임 로딩 전 출력 코드
+ */
 export default class S_Loading extends Phaser.Scene {
   constructor() {
     super("loading");
@@ -24,12 +28,13 @@ export default class S_Loading extends Phaser.Scene {
     const selectText = this.add
       .text(
         this.cameras.main.centerX,
-        100,
-        "얼굴이 화면 한가운데에 있도록 조정해주세요!",
+        130,
+        "얼굴을 화면 가운데에 위치해 주세요!",
         {
           fontFamily: "Noto Sans KR",
           fill: "#2C2340",
-          fontSize: "50px",
+          fontSize: "55px",
+          fontWeight: "800",
         }
       )
       .setOrigin(0.5);
@@ -41,16 +46,16 @@ export default class S_Loading extends Phaser.Scene {
     */
 
     const human = this.add
-      .image(this.cameras.main.centerX, 550, "humanshape")
-      .setScale(0.8);
-    console.log(human);
+      .image(this.cameras.main.centerX, 585, "humanshape")
+      .setScale(0.8)
+      .setAlpha(0.8);
     this.camera = document.querySelector(".camera");
     this.camera.style.display = "block";
     const input_video = document.querySelector(".input_video");
     input_video.style.display = "none";
     const output_canvas = document.querySelector(".output_canvas");
     output_canvas.style =
-      "position: absolute; top: 50%; left: 50%; width:50%; transform: translate(-50%,-50%); border-radius: 15px;";
+      "position: absolute; top: 50%; left: 50%; width:50%; transform: translate(-50%,-40%); border-radius: 15px; opacity:0.5;";
     this.startGame();
   }
 }
