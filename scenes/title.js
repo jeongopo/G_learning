@@ -18,7 +18,7 @@ export default class S_Title extends Phaser.Scene {
   preload() {
     this.load.image("hand", "../assets/img/hand.png");
     this.load.image("title_startBtn", "../assets/img/startBtn.png");
-    // this.load.image('title_back', "../assets/img/title_back.png");
+    this.load.image("title", "../assets/img/MGMG.png");
     // this.load.image('title_btnback', "../assets/img/title_btnback.png");
   }
   create() {
@@ -28,12 +28,7 @@ export default class S_Title extends Phaser.Scene {
 
     //타이틀 텍스트
     const titleText = this.add
-      .text(this.cameras.main.centerX, 300, "MGMG", {
-        fontFamily: "Noto Sans KR",
-        fill: "#2C2340",
-        fontSize: "150px",
-        fontWeight: "bold",
-      })
+      .image(this.cameras.main.centerX + 10, 320, "title")
       .setOrigin(0.5);
 
     //타이틀씬 시작버튼
