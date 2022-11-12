@@ -1,7 +1,7 @@
 import { checkPos } from "../lib/script.js";
 
 /**
- * @author 남현정
+ * @author 남현정, 지수빈
  * @file 리듬게임을 진행하는 씬 코드
  */
 export default class S_InGame extends Phaser.Scene {
@@ -142,7 +142,7 @@ export default class S_InGame extends Phaser.Scene {
             break;
           case "S":
             tem = this.add.image(1800, 280, "C_upRight").setScale(0.5);
-            
+
             break;
           case "D":
             tem = this.add.image(1800, 280, "C_downRight").setScale(0.5);
@@ -302,7 +302,11 @@ export default class S_InGame extends Phaser.Scene {
     this.load.image("castanets", "./assets/img/instrument/castanets.png");
     this.load.image("smalldrum", "./assets/img/instrument/smalldrum.png");
 
-    this.load.audio("matchSound", "./assets/sounds/tamSound.mp3");
+    this.load.audio("SE_tambourine", "./assets/sounds/SE_tambourine.mp3");
+    this.load.audio("SE_triangle", "./assets/sounds/SE_triangle.mp3");
+    this.load.audio("SE_castanets", "./assets/sounds/SE_castanets.mp3");
+    this.load.audio("SE_smalldrum", "./assets/sounds/SE_smalldrum.mp3");
+
     this.load.audio("BGM1", "./assets/bgm/BGM_리듬악기연주.mp3");
     this.load.audio("BGM2", "./assets/bgm/BGM_눈.mp3");
     this.load.audio("BGM3", "./assets/bgm/BGM_작은별.mp3");
@@ -312,11 +316,11 @@ export default class S_InGame extends Phaser.Scene {
     document.getElementById("camera_canvas").style.display = "none";
     document.getElementById("phaser_canvas").childNodes[2].style.zIndex = -1;
     this.RefInGameMusic = this.scene.get("userdata").InGameMusic;
+    console.log(this.RefInGameMusic);
     this.IsGameEnd = false;
     //#region 디자인
 
     //오브젝트 배치
-
     if (this.instrumentObject == null) {
       this.instrumentObject = this.add.image(1080, 700, this.instrument);
       if (this.instrument === "tambourine") {
@@ -347,28 +351,28 @@ export default class S_InGame extends Phaser.Scene {
     const noteline = this.add.image(720, 280, "noteline").setScale(0.5);
     const c_match = this.add.image(200, 280, "C_match").setScale(0.5);
 
-    if (this.back_arrow == null) {
-      this.back_arrow = this.add
-        .image(100, 70, "back_arrow")
-        .setInteractive({
-          cursor: "pointer",
-        })
-        .setScale(0.5)
-        .on(
-          "pointerdown",
-          () => {
-            this.IsGameEnd = true;
-            document.getElementById("camera_canvas").style.display = "none";
-            this.backMusic.stop();
-            document.getElementById(
-              "phaser_canvas"
-            ).childNodes[2].style.zIndex = 0;
-            //this.scene.sleep("ingame");
-            this.scene.start("select");
-          },
-          this
-        );
-    }
+    //if (this.back_arrow == null) {
+    this.back_arrow = this.add
+      .image(100, 70, "back_arrow")
+      .setInteractive({
+        cursor: "pointer",
+      })
+      .setScale(0.5)
+      .on(
+        "pointerdown",
+        () => {
+          this.IsGameEnd = true;
+          document.getElementById("camera_canvas").style.display = "none";
+          this.backMusic.stop();
+          document.getElementById(
+            "phaser_canvas"
+          ).childNodes[2].style.zIndex = 0;
+          //this.scene.sleep("ingame");
+          this.scene.start("select");
+        },
+        this
+      );
+    //}
 
     //텍스트 배치
     if (this.textEval == null) {
@@ -409,7 +413,7 @@ export default class S_InGame extends Phaser.Scene {
     this.initdata();
 
     //#endregion
-    // 카메라 위치관련 ...
+    // 카메라 위치관련
     const camera = document.querySelector(".camera");
     camera.style.display = "block";
     const input_video = document.querySelector(".input_video");
@@ -417,26 +421,32 @@ export default class S_InGame extends Phaser.Scene {
     const output_canvas = document.querySelector(".output_canvas");
     output_canvas.style =
       "position: absolute; top: 65%; left: 33%; width:30%; transform: translate(-50%,-50%); border-radius: 15px";
-    this.matchSound = this.sound.add("matchSound", {
+    this.matchSound = this.sound.add(`SE_${this.instrument}`, {
       loop: false,
+      volume: 2,
     });
 
     //#region 노래별 세팅
 
     if (this.musicName == null) {
       this.musicName = this.add
-        .text(this.cameras.main.centerX, 70, "리듬악기 노래", {
-          fontFamily: "Noto Sans KR",
-          fill: "#FFF",
-          fontSize: "50px",
-          align: "center",
-        })
+        .text(
+          this.cameras.main.centerX,
+          70,
+          this.songName[this.RefInGameMusic],
+          {
+            fontFamily: "Noto Sans KR",
+            fill: "#FFF",
+            fontSize: "50px",
+            align: "center",
+          }
+        )
         .setOrigin(0.5);
     }
     this.musicName.setText(this.songName[this.RefInGameMusic]);
 
     const songName = "BGM" + this.RefInGameMusic;
-
+    console.log(songName);
     this.backMusic = this.sound.add(songName, {
       loop: false,
     });
@@ -455,8 +465,6 @@ export default class S_InGame extends Phaser.Scene {
         this.musicEndTime = 34000;
     }
 
-    
-
     //#endregion
     this.startGame();
 
@@ -474,7 +482,7 @@ export default class S_InGame extends Phaser.Scene {
       document.getElementById("phaser_canvas").childNodes[2].style.zIndex = 0;
       this.backMusic.stop();
     }
-    if(this.keyA.isDown){
+    if (this.keyA.isDown) {
       console.log(this.inGameGetTime());
     }
     if (this.IsMusicOn) {

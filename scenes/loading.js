@@ -2,6 +2,7 @@ export default class S_Loading extends Phaser.Scene {
   constructor() {
     super("loading");
     this.camera;
+    this.instrument == null;
 
     this.startGame = () => {
       setTimeout(() => {

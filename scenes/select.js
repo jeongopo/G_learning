@@ -73,8 +73,8 @@ export default class S_Select extends Phaser.Scene {
       "pointerdown",
       () => {
         //this.scene.start('loading');
-        this.scene.get('soundmanager').playSE("CLICK");
-        this.scene.get('userdata').InGameMusic = 1;
+        this.scene.get("soundmanager").playSE("CLICK");
+        this.scene.get("userdata").InGameMusic = 1;
         this.scene.start("select_instrument");
       },
       this
@@ -90,8 +90,8 @@ export default class S_Select extends Phaser.Scene {
       "pointerdown",
       () => {
         //this.scene.start('loading');
-        this.scene.get('soundmanager').playSE("CLICK");
-        this.scene.get('userdata').InGameMusic = 2;
+        this.scene.get("soundmanager").playSE("CLICK");
+        this.scene.get("userdata").InGameMusic = 2;
         this.scene.start("select_instrument");
       },
       this
@@ -106,8 +106,8 @@ export default class S_Select extends Phaser.Scene {
       "pointerdown",
       () => {
         //this.scene.start('loading');
-        this.scene.get('soundmanager').playSE("CLICK");
-        this.scene.get('userdata').InGameMusic = 3;
+        this.scene.get("soundmanager").playSE("CLICK");
+        this.scene.get("userdata").InGameMusic = 3;
         this.scene.start("select_instrument");
       },
       this
