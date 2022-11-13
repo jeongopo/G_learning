@@ -322,6 +322,10 @@ export default class S_InGame extends Phaser.Scene {
 
     //오브젝트 배치
     if (this.instrumentObject == null) {
+      const upperbar = this.add.image(720, 70, "upperbar").setScale(0.5);
+      const noteline = this.add.image(720, 280, "noteline").setScale(0.5);
+      const c_match = this.add.image(200, 280, "C_match").setScale(0.5);
+
       this.instrumentObject = this.add.image(1080, 700, this.instrument);
       if (this.instrument === "tambourine") {
         this.instrumentObject.setScale(0.4);
@@ -347,9 +351,7 @@ export default class S_InGame extends Phaser.Scene {
       }
     }
 
-    const upperbar = this.add.image(720, 70, "upperbar").setScale(0.5);
-    const noteline = this.add.image(720, 280, "noteline").setScale(0.5);
-    const c_match = this.add.image(200, 280, "C_match").setScale(0.5);
+
 
     //if (this.back_arrow == null) {
     this.back_arrow = this.add
